@@ -1,0 +1,8 @@
+Apr 24, 2025 10:13:44 AM HotelApp main
+FINE: dbConfigFile => db.properties
+Apr 24, 2025 10:13:58 AM HotelApp getDbConnection
+FINE: DB URL => 'jdbc:mariadb://146.245.252.140:3306/Sudarin72_db'
+Apr 24, 2025 10:13:58 AM HotelApp getDbConnection
+INFO: Connected to MariaDB successfully!
+Apr 24, 2025 10:13:58 AM HotelController controllerLoop
+INFO: Starting the hotel application controller loop for User ID: G69764892
