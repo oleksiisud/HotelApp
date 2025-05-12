@@ -15,6 +15,7 @@ public class HotelController {
   private static String firstRoomType;
   private static String secondRoomType;
   private static String hotelName;
+  private static String hotelAddress;
 
   /**
    * Controls the main loop of the hotel application.
@@ -35,64 +36,148 @@ public class HotelController {
 
     System.out.print(HotelView.titleScreen());
     int action = 0;
-    do {
-      System.out.print(HotelView.getMenuText());
-      action = Integer.parseInt(in.nextLine());
-      switch (action) {
-        case 1:
-          listAllGuests(connection);
-          break;
-        case 2:
-          listGuestBookings(connection);
-          break;
-        case 3:
-          System.out.println("Enter Hotel Name:\nGrand Plaza | Seaside Resort | Mountain Lodge | City Inn | Sunset Hotel");
-          hotelName = in.nextLine().trim();
-          listTotalProfit(connection, hotelName);
-          break;
-        case 4:
-          showAvailableRoomTypes(connection);
-          break;
-        case 5:
-          showAvgBookingCost(connection);
-          break;
-        case 6:
-          System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
-          roomType = in.nextLine().toLowerCase().trim();
-          listDeluxeGuests(connection, roomType);
-          break;
-        case 7:
-          listGoodHotels(connection);
-          break;
-        case 8:
-          listHotelEvents(connection);
-          break;
-        case 9:
-          System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
-          firstRoomType = in.nextLine().toLowerCase().trim();
-          String anotherRoom;
-          do {
-            System.out.println("Do you want to add another room type? (y or n)");
-            anotherRoom = in.nextLine().toLowerCase().trim();
-            if (anotherRoom.equals("y")) {
-              System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
-              secondRoomType = in.nextLine().toLowerCase().trim();
-              break;
-            } else if (anotherRoom.equals("n")) {
-              secondRoomType = "";
+    if (userId.charAt(0) == 'G') {
+      do {
+        System.out.print(HotelView.getGuestMenuText());
+        action = Integer.parseInt(in.nextLine());
+        switch (action) {
+          case 1:
+            showAvailableRoomTypes(connection);
+            break;
+          case 2:
+            showAvgBookingCost(connection);
+            break;
+          case 3:
+            listGoodHotels(connection);
+            break;
+          case 4:
+            listHotelEvents(connection);
+            break;
+          case 5:
+            listAllHotels(connection);
+            System.out.print("Hotel name: ");
+            hotelName = in.nextLine().trim();
+            System.out.print("Hotel address: ");
+            hotelAddress = in.nextLine().trim();
+            System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
+            firstRoomType = in.nextLine().toLowerCase().trim();
+            String anotherRoom;
+            do {
+              System.out.println("Do you want to add another room type? (y or n)");
+              anotherRoom = in.nextLine().toLowerCase().trim();
+              if (anotherRoom.equals("y")) {
+                System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
+                secondRoomType = in.nextLine().toLowerCase().trim();
+                break;
+              } else if (anotherRoom.equals("n")) {
+                secondRoomType = "";
+                break;
+              }
+            }
+            while (!(anotherRoom.equals("y") || anotherRoom.equals("n")));
+            listRoomTypeNumbers(connection, hotelName, hotelAddress, firstRoomType, secondRoomType);
+            break;
+          case 6:
+            listAllHotels(connection);
+            System.out.print("Hotel name: ");
+            hotelName = in.nextLine().trim();
+            System.out.print("Hotel address: ");
+            hotelAddress = in.nextLine().trim();
+            System.out.print("Room type (Standard, Single, Double, Deluxe): ");
+            String roomType = in.nextLine().trim().toLowerCase();
+            listRoomTypeNumbers(connection, hotelName, hotelAddress, roomType, "");
+            System.out.print("Enter roomNumber to book: ");
+            String chosen = in.nextLine().trim();
+            String txn = HotelDataModel.generateTransactionNumber(connection);
+            double cost;
+            switch (roomType) {
+              case "single":   cost = 80.00;  break;
+              case "standard": cost = 100.00; break;
+              case "double":   cost = 120.00; break;
+              case "deluxe":   cost = 200.00; break;
+              default:
+                cost = 100.00;
+            }
+            System.out.printf("Booking a %s room will cost $%.2f. Confirm? (y/n): ", roomType, cost);
+            if (!in.nextLine().trim().equalsIgnoreCase("y")) {
+              System.out.println("Booking cancelled.");
               break;
             }
-          }
-          while (!(anotherRoom.equals("y") && !anotherRoom.equals("n")));
-          listRoomTypeNumbers(connection, firstRoomType, secondRoomType);
-          break;
-        case 0:
-          HotelView.sayGoodbye();
-          break;
-        default:
-          HotelView.promptForInvalidChoice();
-      }
-    } while (action != 0);
+            HotelDataModel.addBooking(connection, txn, userId.substring(1), cost, chosen, hotelName, hotelAddress);
+            HotelView.displayBookingConfirmation(txn);
+            break;
+          case 0:
+            HotelView.sayGoodbye();
+            break;
+          default:
+            HotelView.promptForInvalidChoice();
+        }
+      } while (action != 0);
+    } else if (userId.charAt(0) == 'M') {
+      do {
+        System.out.print(HotelView.getManagerMenuText());
+        action = Integer.parseInt(in.nextLine());
+        switch (action) {
+          case 1:
+
+            break;
+          case 2:
+            listAllGuests(connection);
+            break;
+          case 3:
+            listGuestBookings(connection);
+            break;
+          case 4:
+            System.out.println("Enter Hotel Name:");
+            listAllHotels(connection);
+            hotelName = in.nextLine().trim();
+            listTotalProfit(connection, hotelName);
+            break;
+          case 5:
+            showAvailableRoomTypes(connection);
+            break;
+          case 6:
+            showAvgBookingCost(connection);
+            break;
+          case 7:
+            System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
+            roomType = in.nextLine().toLowerCase().trim();
+            listDeluxeGuests(connection, roomType);
+            break;
+          case 8:
+            listAllHotels(connection);
+            System.out.print("Hotel name: ");
+            hotelName = in.nextLine().trim();
+            System.out.print("Hotel address: ");
+            hotelAddress = in.nextLine().trim();
+            System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
+            firstRoomType = in.nextLine().toLowerCase().trim();
+            String anotherRoom;
+            do {
+              System.out.println("Do you want to add another room type? (y or n)");
+              anotherRoom = in.nextLine().toLowerCase().trim();
+              if (anotherRoom.equals("y")) {
+                System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
+                secondRoomType = in.nextLine().toLowerCase().trim();
+                break;
+              } else if (anotherRoom.equals("n")) {
+                secondRoomType = "";
+                break;
+              }
+            }
+            while (!(anotherRoom.equals("y") || anotherRoom.equals("n")));
+            listRoomTypeNumbers(connection, hotelName, hotelAddress, firstRoomType, secondRoomType);
+            break;
+          case 9:
+            break;
+          case 0:
+            HotelView.sayGoodbye();
+            break;
+          default:
+            HotelView.promptForInvalidChoice();
+        }
+      } while (action != 0);
+    }
   }
 
   private static void listAllHotels(Connection connection) throws SQLException {
@@ -141,12 +226,15 @@ public class HotelController {
     HotelView.displayHotelEvents(hotelEvents);
   }
 
-  private static void listRoomTypeNumbers(Connection connection, String firstRoomType, String secondRoomType) throws SQLException {
-    List<Room> roomTypeNumbers = HotelDataModel.getRoomTypeNumbers(connection,
-            (firstRoomType.substring(0, 1).toUpperCase() + firstRoomType.substring(1)),
-            (secondRoomType.length() > 0 ? (secondRoomType.substring(0, 1).toUpperCase() + secondRoomType.substring(1)) : ""));
+  private static void listRoomTypeNumbers(Connection connection, String hotelName, String hotelAddress, String firstRoomType, String secondRoomType) throws SQLException {
+    List<Room> roomTypeNumbers = HotelDataModel.getRoomTypeNumbers(
+            connection, hotelName, hotelAddress, firstRoomType, secondRoomType);
     HotelView.displayRoomTypeNumbers(roomTypeNumbers);
+    if (roomTypeNumbers.isEmpty()) {
+      System.out.println("No rooms available.");
+    }
   }
+
   /*
   private static void listAllStudios(Connection connection) throws SQLException {
     List<Studio> studios = MovieDataModel.getAllStudios(connection);

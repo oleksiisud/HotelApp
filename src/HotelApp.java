@@ -21,9 +21,6 @@ public class HotelApp {
 
   private static final String DB_CONFIG_FILE_KEY = "db.config.file";
   private static final String DB_CONFIG_FILE = "db.properties";
-  
-  private static final String USER_ID_KEY = "user.id";
-  private static final String USER_ID = "U12345678";
 
   private static final Scanner in = new Scanner(System.in);
 
@@ -35,36 +32,56 @@ public class HotelApp {
    */
   public static void main(String[] args) {
     try (AutoclosableLoggerFileHandler logFileHandler =
-        new AutoclosableLoggerFileHandler(LOG_FILE, false)) {
+                 new AutoclosableLoggerFileHandler(LOG_FILE, false)) {
       setup_logger(logFileHandler, logger);
 
-      String dbConfigFile = System.getProperty(DB_CONFIG_FILE_KEY);
-      if (dbConfigFile == null) {
-        dbConfigFile = DB_CONFIG_FILE;
-      }
-      logger.log(Level.FINE, "dbConfigFile => " + dbConfigFile);
-      String userId = System.getProperty(USER_ID_KEY);
-      if (userId == null) {
-        System.out.println("Are you a guest or a manager? (Guest or Manager)");
-        String userType = in.nextLine().toLowerCase().trim();
-        if (userType.equals("guest")) {
-          userId = "G" + String.format("%08d", (int)(Math.random() * 1_000_000_00));
-        } else if (userType.equals("manager")) {
-          userId = "M" + String.format("%08d", (int)(Math.random() * 1_000_000_00));
-        } else {
-          System.out.println("Invalid Response, entering as " + USER_ID);
-          userId = USER_ID;
-        }
-      }
-
-      try (Connection connection = getDbConnection(dbConfigFile)) {
-        HotelController.controllerLoop(connection, userId);
-      } catch (SQLException e) {
-        HotelView.displaySystemErrorMsg(e);
-        logger.log(Level.SEVERE, "Error operating on MariaDB: " + e.getMessage());
+      String dbConfigFile = System.getProperty(DB_CONFIG_FILE_KEY, DB_CONFIG_FILE);
+      try (Connection conn = getDbConnection(dbConfigFile)) {
+        // ← new login step
+        String userId = promptLogin(conn);
+        HotelController.controllerLoop(conn, userId);
       }
     } catch (IOException e) {
       HotelView.displayLogErrorMsg(e);
+    } catch (SQLException e) {
+      HotelView.displaySystemErrorMsg(e);
+      logger.log(Level.SEVERE, "DB error: " + e);
+    }
+  }
+
+  private static String promptLogin(Connection conn) throws SQLException {
+    while (true) {
+      System.out.println("1. Existing Guest\n2. New Guest\n3. Staff/Manager\nChoose option:");
+      String opt = in.nextLine().trim();
+      switch (opt) {
+        case "1":   // existing guest
+          System.out.print("Enter your guest email: ");
+          String ge = in.nextLine().trim();
+          if (HotelDataModel.guestExists(conn, ge)) {
+            return "G" + ge;
+          }
+          System.out.println("No guest found with that email.");
+          break;
+
+        case "2":  // register new guest
+          int rnd = (int)(Math.random() * 100_000_000);
+          String guestId = "G" + String.format("%08d", rnd);
+          System.out.println("Welcome, " + guestId + "!");
+          System.out.println("Your Guest ID is: " + guestId);
+          return guestId;
+
+        case "3":   // staff login
+          System.out.print("Enter your staff email: ");
+          String se = in.nextLine().trim();
+          if (HotelDataModel.staffExists(conn, se)) {
+            return "M" + se;
+          }
+          System.out.println("No staff account found with that email.");
+          break;
+
+        default:
+          System.out.println("Invalid choice, please try again.");
+      }
     }
   }
 

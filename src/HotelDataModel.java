@@ -1,7 +1,5 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +8,32 @@ import java.util.List;
  * this class constitutes the "model" of the application.
  */
 public class HotelDataModel {
+
+  /**
+   * Check if a guest with that email already exists
+   */
+  public static boolean guestExists(Connection conn, String email) throws SQLException {
+    String sql = "SELECT 1 FROM Guests WHERE emailAddress = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+      ps.setString(1, email);
+      try (ResultSet rs = ps.executeQuery()) {
+        return rs.next();
+      }
+    }
+  }
+
+  /**
+   * Check if a staff/manager with that email exists
+   */
+  public static boolean staffExists(Connection conn, String email) throws SQLException {
+    String sql = "SELECT 1 FROM Staff WHERE emailAddress = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+      ps.setString(1, email);
+      try (ResultSet rs = ps.executeQuery()) {
+        return rs.next();
+      }
+    }
+  }
 
   /**
    * Retrieves all movies from the database. This is an example.
@@ -21,12 +45,12 @@ public class HotelDataModel {
   public static List<Hotel> getAllHotels(Connection connection) throws SQLException {
     List<Hotel> hotelList = new LinkedList<Hotel>();
 
-    String sql = "SELECT * FROM Hotel";
+    String sql = "SELECT name, address FROM Hotel";
     PreparedStatement pstmt = connection.prepareStatement(sql);
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
       hotelList.add(new Hotel(resultSet.getString("name"), resultSet.getString("address"),
-          resultSet.getString("phoneNumber"), resultSet.getFloat("rating")));
+          null, 0));
     }
     return hotelList;
   }
@@ -212,36 +236,100 @@ public class HotelDataModel {
    * 9. [Hard; Oleksii Sudarin] Room number of up to 2 types of rooms
    *
    * @param connection the database connection
+   * @param hotelName hotel name
+   * @param hotelAddress hotel Address
    * @param firstRoomType first room Type
    * @param secondRoomType optional second room Type
    * @return a list of room numbers under certain room Type
    * @throws SQLException if a database access error occurs
    */
-  public static List<Room> getRoomTypeNumbers(Connection connection, String firstRoomType, String secondRoomType) throws SQLException {
-    List<Room> roomList = new LinkedList<Room>();
-    String sql;
-    if (secondRoomType.length() > 0) {
-      sql = "SELECT roomNumber, roomType " +
-              "FROM Rooms " +
-              "WHERE roomType = '" + firstRoomType + "' " +
-              "UNION " +
-              "SELECT roomNumber, roomType " +
-              "FROM Rooms " +
-              "WHERE roomType = '" + secondRoomType + "'";
-    } else {
-      sql = "SELECT roomNumber, roomType " +
-              "FROM Rooms " +
-              "WHERE roomType = '" + firstRoomType + "'";
+  public static List<Room> getRoomTypeNumbers(Connection connection,
+                                                   String hotelName, String hotelAddress, String firstRoomType, String secondRoomType) throws SQLException {
+    List<Room> rooms = new LinkedList<>();
+    String sql =
+            "SELECT roomNumber, roomType, roomCapacity " +
+                    "FROM Rooms " +
+                    "WHERE hotelName = ? AND hotelAddress = ? " +
+                    "AND roomType IN (?, ?) AND availability = TRUE";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+      ps.setString(1, hotelName);
+      ps.setString(2, hotelAddress);
+      ps.setString(3, firstRoomType);
+      ps.setString(4, secondRoomType);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          rooms.add(new Room(
+                  rs.getString("roomNumber"),
+                  rs.getString("roomType"),
+                  false,
+                  rs.getInt("roomCapacity"),
+                  hotelName, hotelAddress
+          ));
+        }
+      }
+    }
+    return rooms;
+  }
+
+  /**
+   * 10. [Hardest; Oleksii Sudarin] Book a room
+   *
+   * @param connection the database connection
+   * @param txnNo transaction number
+   * @param guestEmail Guest email address
+   * @param cost booking cost
+   * @param roomNumber room number that is booked
+   * @param hotelName hotel name
+   * @param hotelAddress hotel address
+   * @throws SQLException if a database access error occurs
+   */
+  public static void addBooking(Connection connection, String txnNo, String guestEmail, double cost, String roomNumber, String hotelName, String hotelAddress) throws SQLException {
+
+    String lookup = "SELECT name, phoneNumber, partySize FROM Guests WHERE emailAddress = ?";
+    String guestName, guestPhone;
+    int partySize;
+    try (PreparedStatement ps = connection.prepareStatement(lookup)) {
+      ps.setString(1, guestEmail);
+      try (ResultSet rs = ps.executeQuery()) {
+        if (!rs.next()) {
+          throw new SQLException("No guest found with email: " + guestEmail);
+        }
+        guestName  = rs.getString("name");
+        guestPhone = rs.getString("phoneNumber");
+        partySize  = rs.getInt("partySize");
+      }
     }
 
-    PreparedStatement pstmt = connection.prepareStatement(sql);
-    ResultSet resultSet = pstmt.executeQuery();
-    while (resultSet.next()) {
-      roomList.add(new Room(resultSet.getString("roomNumber"), resultSet.getString("roomType"),
-              false, 0, null, null));
+    try (CallableStatement cs = connection.prepareCall("{ CALL AddGuestBooking(?,?,?,?,?,?,?,?,?) }")) {
+      cs.setString(1, guestName);
+      cs.setString(2, guestEmail);
+      cs.setString(3, guestPhone);
+      cs.setInt   (4, partySize);
+      cs.setString(5, txnNo);
+      cs.setBigDecimal(6, BigDecimal.valueOf(cost));
+      cs.setString(7, roomNumber);
+      cs.setString(8, hotelName);
+      cs.setString(9, hotelAddress);
+
+      cs.execute();
     }
-    return roomList;
   }
+
+  public static String generateTransactionNumber(Connection conn) throws SQLException {
+    String sql =
+            "SELECT MAX(transactionNumber) FROM Booking";
+    String maxTxn = null;
+    try (PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+      if (rs.next()) maxTxn = rs.getString(1);
+    }
+    int next = 1;
+    if (maxTxn != null && maxTxn.startsWith("TXN")) {
+      next = Integer.parseInt(maxTxn.substring(3)) + 1;
+    }
+    return String.format("TXN%07d", next);
+  }
+
   /*
 
 

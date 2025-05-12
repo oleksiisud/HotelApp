@@ -23,17 +23,26 @@ public class HotelView {
             "by Oleksii Sudarin, Allen Garcia, Ghufran Ali\n";
   }
 
-  public static String getMenuText() {
-    return "1. [Easy; Allen Garcia] List guests and their transaction numbers\n"
-        + "2. [Medium; Allen Garcia] List guests with booking over $300\n"
-        + "3. [Hard; Allen Garcia] Total profit of a hotel\n"
-        + "4. [Easy; Ghufran Ali] Room types currently available\n"
-        + "5. [Medium; Ghufran Ali] Average cost of bookings in each hotel\n"
-        + "6. [Hard; Ghufran Ali] Guests who reserved a specific room\n"
-        + "7. [Easy; Oleksii Sudarin] Good Hotels rated above 3.0\n"
-        + "8. [Medium; Oleksii Sudarin] View all hotel events\n"
-        + "9. [Hard; Oleksii Sudarin] Room number of up to 2 types of rooms\n"
+  public static String getGuestMenuText() {
+    return "1. [Easy; Ghufran Ali] Room types currently available\n"
+        + "2. [Medium; Ghufran Ali] Average cost of bookings in each hotel\n"
+        + "3. [Easy; Oleksii Sudarin] Good Hotels rated above 3.0\n"
+        + "4. [Medium; Oleksii Sudarin] View all hotel events\n"
+        + "5. [Hard; Oleksii Sudarin] Room number of up to 2 types of rooms\n"
+        + "6. [Hardest; Oleksii Sudarin] Book a room\n"
         + "0. Exit\n" + "Enter your choice: ";
+  }
+  public static String getManagerMenuText() {
+    return "1. [Easy; Allen Garcia] Database List\n"
+            + "2. [Easy; Allen Garcia] List guests and their transaction numbers\n"
+            + "3. [Medium; Allen Garcia] List guests with booking over $300\n"
+            + "4. [Hard; Allen Garcia] Total profit of a hotel\n"
+            + "5. [Easy; Ghufran Ali] Room types currently available\n"
+            + "6. [Medium; Ghufran Ali] Average cost of bookings in each hotel\n"
+            + "7. [Hard; Ghufran Ali] Guests who reserved a specific room\n"
+            + "8. [Hard; Oleksii Sudarin] Room number of up to 2 types of rooms\n"
+            + "9. [Hardest; ] Add assistance\n"
+            + "0. Exit\n" + "Enter your choice: ";
   }
 
   public static void displayInvalidCustomerMsg() {
@@ -46,13 +55,11 @@ public class HotelView {
    * @param hotels the list of hotels to display
    */
   public static void displayHotels(List<Hotel> hotels) {
-    System.out.printf("%s\n", "-".repeat(71));
-    System.out.printf("%-20s | %-35s | %-10s | %-6s\n", "Name", "Address", "Phone Number", "Rating");
+    System.out.printf("%s\n", "-".repeat(58));
+    System.out.printf("%-20s | %-35s\n", "Name", "Address");
     for (Hotel hotel : hotels) {
-      System.out.printf("%-20s | %-35s | %-10s | %-6s\n", hotel.getName(), hotel.getAddress(),
-              hotel.getPhoneNumber(), hotel.getRating());
+      System.out.printf("%-20s | %-35s\n", hotel.getName(), hotel.getAddress());
     }
-    System.out.printf("%s\n", "-".repeat(71));
   }
 
   /**
@@ -184,15 +191,17 @@ public class HotelView {
    *
    * @param rooms list of room number and the type
    */
+
   public static void displayRoomTypeNumbers(List<Room> rooms) {
-    System.out.printf("%s\n", "-".repeat(23));
-    System.out.printf("%-11s | %-9s\n", "Room Number", "Room Type");
-    System.out.printf("%s\n", "-".repeat(23));
+    System.out.printf("%s\n", "-".repeat(39));
+    System.out.printf("%-11s | %-9s | %-13s\n", "Room Number", "Room Type", "Room Capacity");
+    System.out.printf("%s\n", "-".repeat(39));
     for (Room room : rooms) {
-      System.out.printf("%-11s | %-9s\n", room.getRoomNumber(), room.getRoomType());
+      System.out.printf("%-11s | %-9s | %-13s\n", room.getRoomNumber(), room.getRoomType(), room.getRoomCapacity());
     }
-    System.out.printf("%s\n", "-".repeat(23));
+    System.out.printf("%s\n", "-".repeat(39));
   }
+
   /*
 
    * Displays a list of studios with their details.
@@ -304,6 +313,9 @@ public class HotelView {
 
 
   */
+  public static void displayBookingConfirmation(String txnNo) {
+    System.out.println("Booking successful! Transaction #: " + txnNo);
+  }
 
   public static void displaySystemErrorMsg(Exception e) {
     System.err.println("System error. Call technical support! " + e.getMessage());
