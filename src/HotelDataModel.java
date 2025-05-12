@@ -2,6 +2,7 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class provides methods to interact with the hotel database. Along with a few other classes,
@@ -284,7 +285,7 @@ public class HotelDataModel {
    * @throws SQLException if a database access error occurs
    */
   public static void addBooking(Connection connection, String txnNo, String guestEmail, double cost, String roomNumber, String hotelName, String hotelAddress) throws SQLException {
-
+    Scanner in = new Scanner(System.in);
     String lookup = "SELECT name, phoneNumber, partySize FROM Guests WHERE emailAddress = ?";
     String guestName, guestPhone;
     int partySize;
@@ -292,7 +293,13 @@ public class HotelDataModel {
       ps.setString(1, guestEmail);
       try (ResultSet rs = ps.executeQuery()) {
         if (!rs.next()) {
-          throw new SQLException("No guest found with email: " + guestEmail);
+          System.out.println("No guest found with email: " + guestEmail);
+          System.out.println("Enter your name:");
+          guestName = in.nextLine();
+          System.out.println("Enter your email address:");
+          guestEmail = in.nextLine();
+          System.out.println("Enter your phone number (10 digits):");
+          guestPhone = in.nextLine();
         }
         guestName  = rs.getString("name");
         guestPhone = rs.getString("phoneNumber");

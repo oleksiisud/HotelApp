@@ -216,21 +216,21 @@ CREATE TABLE `Guests` (
 
 LOCK TABLES `Guests` WRITE;
 /*!40000 ALTER TABLE `Guests` DISABLE KEYS */;
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Alice Johnson', 'alice.johnson@guestmail.com', '4395527356', 4);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Bob Smith', 'bob.smith@guestmail.com', '6066832970', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Carol Davis', 'carol.davis@guestmail.com', '7889518184', 4);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('David Wilson', 'david.wilson@guestmail.com', '4446880696', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Eve Martinez', 'eve.martinez@guestmail.com', '3643659619', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Frank Brown', 'frank.brown@guestmail.com', '2186192860', 2);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Grace Lee', 'grace.lee@guestmail.com', '6217675085', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Henry Clark', 'henry.clark@guestmail.com', '3766957887', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Ivy Walker', 'ivy.walker@guestmail.com', '8673365143', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Jack Hall', 'jack.hall@guestmail.com', '9640223358', 2);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Karen Allen', 'karen.allen@guestmail.com', '5305730144', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Liam Young', 'liam.young@guestmail.com', '5041824170', 4);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Mia Hernandez', 'mia.hernandez@guestmail.com', '5956870146', 3);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Noah King', 'noah.king@guestmail.com', '8527201520', 1);
-INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Olivia Wright', 'olivia.wright@guestmail.com', '4558389380', 2);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Alice Johnson', 'alice.johnson@gmail.com', '4395527356', 4);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Bob Smith', 'bob.smith@gmail.com', '6066832970', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Carol Davis', 'carol.davis@gmail.com', '7889518184', 4);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('David Wilson', 'david.wilson@gmail.com', '4446880696', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Eve Martinez', 'eve.martinez@gmail.com', '3643659619', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Frank Brown', 'frank.brown@gmail.com', '2186192860', 2);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Grace Lee', 'grace.lee@gmail.com', '6217675085', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Henry Clark', 'henry.clark@gmail.com', '3766957887', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Ivy Walker', 'ivy.walker@gmail.com', '8673365143', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Jack Hall', 'jack.hall@gmail.com', '9640223358', 2);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Karen Allen', 'karen.allen@gmail.com', '5305730144', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Liam Young', 'liam.young@gmail.com', '5041824170', 4);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Mia Hernandez', 'mia.hernandez@gmail.com', '5956870146', 3);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Noah King', 'noah.king@gmail.com', '8527201520', 1);
+INSERT INTO Guests (name, emailAddress, phoneNumber, partySize) VALUES ('Olivia Wright', 'olivia.wright@gmail.com', '4558389380', 2);
 /*!40000 ALTER TABLE `Guests` ENABLE KEYS */;
 UNLOCK TABLES;
 
