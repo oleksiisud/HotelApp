@@ -278,7 +278,7 @@ CREATE TABLE `Rooms` (
   `roomCapacity` int(11) DEFAULT NULL,
   `hotelName` varchar(30) DEFAULT NULL,
   `hotelAddress` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`roomNumber`),
+  PRIMARY KEY (`roomNumber`, `hotelName`, `hotelAddress`),
   KEY `hotelName` (`hotelName`,`hotelAddress`),
   CONSTRAINT `Rooms_ibfk_1` FOREIGN KEY (`hotelName`, `hotelAddress`) REFERENCES `Hotel` (`name`, `address`),
   CONSTRAINT `CheckRoomType` CHECK (`roomType` = 'Standard' or `roomType` = 'Single' or `roomType` = 'Double' or `roomType` = 'Deluxe')
