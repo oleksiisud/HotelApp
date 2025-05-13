@@ -26,16 +26,13 @@ public class HotelController {
    */
   public static void controllerLoop(Connection connection, String userId)
       throws SQLException {
-    /*
-    if (HotelDataModel.getCustomerById(connection, customerId) == null) {
-      HotelView.displayInvalidCustomerMsg();
-      return;
-    }
-    */
     logger.info("Starting the hotel application controller loop for User ID: " + userId);
 
     System.out.print(HotelView.titleScreen());
     int action = 0;
+    /**
+     * Guest menu
+     */
     if (userId.charAt(0) == 'G') {
       do {
         System.out.print(HotelView.getGuestMenuText());
@@ -80,6 +77,10 @@ public class HotelController {
             listRoomTypeNumbers(connection, hotelName, hotelAddress, roomType, "");
             System.out.print("Enter roomNumber to book: ");
             String chosen = in.nextLine().trim();
+            while (!HotelDataModel.isRoomAvailable(connection, hotelName, hotelAddress, chosen)) {
+              System.out.println("Invalid or unavailable room. Please choose one from the list above:");
+              chosen = in.nextLine().trim();
+            }
             String txn = HotelDataModel.generateTransactionNumber(connection);
             double cost;
             switch (roomType) {
@@ -105,13 +106,26 @@ public class HotelController {
             HotelView.promptForInvalidChoice();
         }
       } while (action != 0);
+      /**
+       * Manager Menu
+       */
     } else if (userId.charAt(0) == 'M') {
       do {
         System.out.print(HotelView.getManagerMenuText());
         action = Integer.parseInt(in.nextLine());
         switch (action) {
           case 1:
-
+            int databaseAction = 0;
+            do {
+              System.out.print(HotelView.getManagerMenuText());
+              databaseAction = Integer.parseInt(in.nextLine());
+              switch (databaseAction) {
+                case 1:
+                  break;
+                default:
+                  HotelView.promptForInvalidChoice();
+              }
+            } while (databaseAction != 0);
             break;
           case 2:
             listAllGuests(connection);
@@ -181,7 +195,7 @@ public class HotelController {
   }
 
   private static void listGuestBookings(Connection connection) throws SQLException {
-    List<Booking> guestBookings = HotelDataModel.getGuestBookings(connection);
+    List<HotelGuest> guestBookings = HotelDataModel.getGuestBookings(connection);
     HotelView.displayGuestBookings(guestBookings);
   }
 
@@ -202,7 +216,7 @@ public class HotelController {
 
   private static void listDeluxeGuests(Connection connection, String roomType) throws SQLException {
     roomType = (roomType.substring(0, 1).toUpperCase() + roomType.substring(1));
-    List<Guests> guests = HotelDataModel.getDeluxeGuests(connection, roomType);
+    List<HotelGuest> guests = HotelDataModel.getDeluxeGuests(connection, roomType);
     HotelView.showDeluxeGuests(guests, roomType);
   }
 

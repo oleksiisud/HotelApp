@@ -88,12 +88,12 @@ public class HotelView {
    *
    * @param guestBookings list of guests and their booking costs
    */
-  public static void displayGuestBookings(List<Booking> guestBookings) {
+  public static void displayGuestBookings(List<HotelGuest> guestBookings) {
     System.out.printf("%s\n", "-".repeat(31));
     System.out.printf("%-20s | %-8s\n", "Name", "Cost");
     System.out.printf("%s\n", "-".repeat(31));
-    for (Booking booking : guestBookings) {
-      System.out.printf("%-20s | $%-8.2f%n", booking.getGuestEmailAddress(), booking.getCost());
+    for (HotelGuest booking : guestBookings) {
+      System.out.printf("%-20s | $%-8.2f%n", booking.getGuestName(), booking.getBookingCost());
     }
     System.out.printf("%s\n", "-".repeat(31));
   }
@@ -150,12 +150,12 @@ public class HotelView {
    * @param guests list of guest info
    * @param roomType room type of the guests
    */
-  public static void showDeluxeGuests(List<Guests> guests, String roomType) {
+  public static void showDeluxeGuests(List<HotelGuest> guests, String roomType) {
     System.out.printf("%s\n", "-".repeat(58));
     System.out.printf("%-25s | %-30s\n", roomType + " Room Guest Names", "Email Address");
     System.out.printf("%s\n", "-".repeat(58));
-    for (Guests guest : guests) {
-      System.out.printf("%-25s | %-30s\n", guest.getName(), guest.getEmailAddress());
+    for (HotelGuest guest : guests) {
+      System.out.printf("%-25s | %-30s\n", guest.getGuestName(), guest.getGuestTransactionNo());
     }
     System.out.printf("%s\n", "-".repeat(58));
   }

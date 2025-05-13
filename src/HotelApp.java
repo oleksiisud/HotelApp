@@ -56,9 +56,9 @@ public class HotelApp {
       switch (opt) {
         case "1":   // existing guest
           System.out.print("Enter your guest email: ");
-          String ge = in.nextLine().trim();
-          if (HotelDataModel.guestExists(conn, ge)) {
-            return "G" + ge;
+          String guestEmail = in.nextLine().trim();
+          if (HotelDataModel.guestExists(conn, guestEmail)) {
+            return "G" + guestEmail;
           }
           System.out.println("No guest found with that email.");
           break;
@@ -72,9 +72,9 @@ public class HotelApp {
 
         case "3":   // staff login
           System.out.print("Enter your staff email: ");
-          String se = in.nextLine().trim();
-          if (HotelDataModel.staffExists(conn, se)) {
-            return "M" + se;
+          String staffEmail = in.nextLine().trim();
+          if (HotelDataModel.staffExists(conn, staffEmail)) {
+            return "M" + staffEmail;
           }
           System.out.println("No staff account found with that email.");
           break;
