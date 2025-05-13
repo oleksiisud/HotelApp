@@ -46,6 +46,18 @@ public class HotelView {
             + "9. [Hardest; ] Add assistance\n"
             + "0. Exit\n" + "Enter your choice: ";
   }
+  public static String getDBMenuText() {
+    return "\n\n\n"
+            + "1. [Hotel]\n"
+            + "2. [Staff]\n"
+            + "3. [Guests]\n"
+            + "4. [Rooms]\n"
+            + "5. [Booking]\n"
+            + "6. [Services]\n"
+            + "7. [Events]\n"
+            + "8. [Assistance]\n"
+            + "0. Exit\n" + "Enter your choice: ";
+  }
 
   public static void displayInvalidCustomerMsg() {
     System.out.printf("Invalid customer ID. Ensure the customer exists in the database.\n");
