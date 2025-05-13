@@ -145,7 +145,6 @@ public class HotelController {
                   listAssistanceRelation(connection);
                   break;
                 case 0:
-                  HotelView.sayGoodbye();
                   break;
                 default:
                   HotelView.promptForInvalidChoice();
@@ -194,6 +193,21 @@ public class HotelController {
             listRoomTypeNumbers(connection, hotelName, hotelAddress, firstRoomType, secondRoomType);
             break;
           case 9:
+            hotelSelection(connection);
+
+            System.out.print("Enter staff name: ");
+            String staffName = in.nextLine().trim();
+
+            System.out.print("Enter staff email: ");
+            String staffEmail = in.nextLine().trim();
+
+            System.out.print("Enter guest email: ");
+            String guestEmail = in.nextLine().trim();
+
+            HotelDataModel.addAssistance(connection, staffName, staffEmail, guestEmail);
+
+            System.out.printf("Assistance recorded for hotel: %s, staff: %s, guest: %s\n",
+                    hotelName, staffName, guestEmail);
             break;
           case 0:
             HotelView.sayGoodbye();

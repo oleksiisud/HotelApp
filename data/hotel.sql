@@ -1323,57 +1323,32 @@ CREATE PROCEDURE `AddGuestBooking`(
     IN p_hotelAddress VARCHAR(60)
 )
 BEGIN
-    DECLARE v_avail    BOOLEAN DEFAULT FALSE;
+  DECLARE v_exists INT DEFAULT 0;
+  SELECT COUNT(*) INTO v_exists
+    FROM Guests
+   WHERE emailAddress = p_email;
 
-    START TRANSACTION;
+  IF v_exists = 0 THEN
+    INSERT INTO Guests (name, emailAddress, phoneNumber, partySize)
+    VALUES (p_name, p_email, p_phone, p_partySize);
+  END IF;
 
-    
-    SELECT availability
-      INTO v_avail
-    FROM Rooms
-    WHERE roomNumber   = p_roomNumber
-      AND hotelName    = p_hotelName
-      AND hotelAddress = p_hotelAddress
-    FOR UPDATE;
+  INSERT INTO Booking (
+    transactionNumber, guestEmailAddress, cost,
+    roomNumber, hotelName, hotelAddress
+  ) VALUES (
+    p_txnNo, p_email, p_cost,
+    p_roomNumber, p_hotelName, p_hotelAddress
+  );
 
-    IF v_avail THEN
-        
-        INSERT INTO Guests (name, emailAddress, phoneNumber, partySize)
-        VALUES (p_name, p_email, p_phone, p_partySize);
-
-        
-        INSERT INTO Booking (
-            transactionNumber,
-            guestEmailAddress,
-            cost,
-            roomNumber,
-            hotelName,
-            hotelAddress
-        )
-        VALUES (
-            p_txnNo,
-            p_email,
-            p_cost,
-            p_roomNumber,
-            p_hotelName,
-            p_hotelAddress
-        );
-
-        
-        UPDATE Rooms
-        SET availability = FALSE
-        WHERE roomNumber   = p_roomNumber
-          AND hotelName    = p_hotelName
-          AND hotelAddress = p_hotelAddress;
-
-        COMMIT;
-        SELECT 0 AS retcode, 'Booking successful.' AS retmsg;
-    ELSE
-        ROLLBACK;
-        SELECT 1 AS retcode, 'Room not available.' AS retmsg;
-    END IF;
+  UPDATE Rooms
+    SET availability = FALSE
+   WHERE roomNumber   = p_roomNumber
+     AND hotelName    = p_hotelName
+     AND hotelAddress = p_hotelAddress;
 END ;;
-CREATE PROCEDURE AddAssistance(
+DELIMITER ;
+CREATE PROCEDURE `AddAssistance`(
     IN p_staffName VARCHAR(30),
     IN p_staffEmailAddress VARCHAR(150),
     IN p_guestName VARCHAR(30),

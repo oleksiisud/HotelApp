@@ -475,4 +475,59 @@ public class HotelDataModel {
       }
     }
   }
+
+  public static void addAssistance(Connection connection, String staffName, String staffEmail, String guestEmail) throws SQLException {
+    Scanner in = new Scanner(System.in);
+
+    String guestName = "";
+    String guestPhone = "";
+    int partySize = 0;
+
+    String lookup = "SELECT name, phoneNumber, partySize FROM Guests WHERE emailAddress = ?";
+
+    try (PreparedStatement ps = connection.prepareStatement(lookup)) {
+      ps.setString(1, guestEmail);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        if (!rs.next()) {
+          System.out.println("No guest found with email: " + guestEmail);
+
+          System.out.print("Enter guest name: ");
+          guestName = in.nextLine().trim();
+
+          String candidateEmail;
+          do {
+            System.out.print("Enter guest email address: ");
+            candidateEmail = in.nextLine().trim();
+            if (guestExists(connection, candidateEmail)) {
+              System.out.println("That email is already registered. Please use a different one.");
+            } else {
+              break;
+            }
+          } while (true);
+          guestEmail = candidateEmail;
+
+          System.out.print("Enter guest phone number (10 digits): ");
+          guestPhone = in.nextLine().trim();
+
+          System.out.print("Enter party size: ");
+          partySize = Integer.parseInt(in.nextLine().trim());
+        } else {
+          guestName  = rs.getString("name");
+          guestPhone = rs.getString("phoneNumber");
+          partySize  = rs.getInt("partySize");
+        }
+      }
+    }
+
+    try (CallableStatement cs = connection.prepareCall("{CALL AddAssistance(?, ?, ?, ?)}")) {
+      cs.setString(1, staffName);
+      cs.setString(2, staffEmail);
+      cs.setString(3, guestName);
+      cs.setString(4, guestEmail);
+      cs.execute();
+    }
+
+    System.out.printf("Assistance added successfully for guest: %s with staff: %s\n", guestName, staffName);
+  }
 }

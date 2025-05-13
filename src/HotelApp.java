@@ -56,7 +56,7 @@ public class HotelApp {
       switch (opt) {
         case "1":   // existing guest
           System.out.print("Enter your guest email: ");
-          String guestEmail = in.nextLine().trim();
+          String guestEmail = in.nextLine().trim().toLowerCase();
           if (HotelDataModel.guestExists(conn, guestEmail)) {
             return "G" + guestEmail;
           }
@@ -72,7 +72,7 @@ public class HotelApp {
 
         case "3":   // staff login
           System.out.print("Enter your staff email: ");
-          String staffEmail = in.nextLine().trim();
+          String staffEmail = in.nextLine().trim().toLowerCase();
           if (HotelDataModel.staffExists(conn, staffEmail)) {
             return "M" + staffEmail;
           }

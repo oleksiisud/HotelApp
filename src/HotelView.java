@@ -43,7 +43,7 @@ public class HotelView {
             + "6. [Medium; Ghufran Ali] Average cost of bookings in each hotel\n"
             + "7. [Hard; Ghufran Ali] Guests who reserved a specific room\n"
             + "8. [Hard; Oleksii Sudarin] Room number of up to 2 types of rooms\n"
-            + "9. [Hardest; ] Add assistance\n"
+            + "9. [Hardest; Ghufran Ali] Add assistance\n"
             + "0. Exit\n" + "Enter your choice: ";
   }
   public static String getDBMenuText() {
