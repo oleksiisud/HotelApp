@@ -102,18 +102,19 @@ public class HotelDataModel {
    *
    * @param connection the database connection
    * @param hotelName name of hotel
+   * @param hotelAddress address of the hotel
    * @return a list of hotel name and its total profit
    * @throws SQLException if a database access error occurs
    */
-  public static List<Booking> getTotalProfit(Connection connection, String hotelName) throws SQLException {
+  public static List<Booking> getTotalProfit(Connection connection, String hotelName, String hotelAddress) throws SQLException {
     List<Booking> hotelProfitList = new LinkedList<Booking>();
 
-    String sql = "SELECT hotelName, SUM(cost) FROM Booking WHERE hotelName = '" + hotelName + "'";
+    String sql = "SELECT hotelName, hotelAddress, SUM(cost) FROM Booking WHERE hotelName = '" + hotelName + "' AND hotelAddress = '" + hotelAddress + "'";
     PreparedStatement pstmt = connection.prepareStatement(sql);
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
       hotelProfitList.add(new Booking(null, null, resultSet.getFloat("SUM(cost)"), null,
-              resultSet.getString("hotelName"), null));
+              resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
     }
     return hotelProfitList;
   }
@@ -124,15 +125,15 @@ public class HotelDataModel {
    * @return room types available
    * @throws SQLException if a database access error occurs
    */
-  public static List<Room> getAvailableRoomTypes(Connection connection) throws SQLException {
-    List<Room> roomTypes = new LinkedList<>();
+  public static List<Rooms> getAvailableRoomTypes(Connection connection) throws SQLException {
+    List<Rooms> roomTypes = new LinkedList<>();
 
     String sql = "SELECT DISTINCT roomType FROM Rooms WHERE availability = TRUE";
     PreparedStatement pstmt = connection.prepareStatement(sql);
     ResultSet rs = pstmt.executeQuery();
 
     while (rs.next()) {
-      roomTypes.add(new Room(null, rs.getString("roomType"), false, 0,
+      roomTypes.add(new Rooms(null, rs.getString("roomType"), false, 0,
               null, null));
     }
 
@@ -171,8 +172,8 @@ public class HotelDataModel {
    * @return a list of guest under the roomType
    * @throws SQLException if a database access error occurs
    */
-  public static List<Guest> getDeluxeGuests(Connection connection, String roomType) throws SQLException {
-    List<Guest> guests = new LinkedList<>();
+  public static List<Guests> getDeluxeGuests(Connection connection, String roomType) throws SQLException {
+    List<Guests> guests = new LinkedList<>();
 
     String sql = "SELECT DISTINCT Guests.name, Guests.emailAddress " +
             "FROM Guests INNER JOIN Rooms ON Guests.roomNumber = Rooms.roomNumber " +
@@ -182,8 +183,7 @@ public class HotelDataModel {
     ResultSet rs = pstmt.executeQuery();
 
     while (rs.next()) {
-      guests.add(new Guest(rs.getString("name"), rs.getString("emailAddress"), null, 0,
-              null, null, null));
+      guests.add(new Guests(rs.getString("name"), rs.getString("emailAddress"), null, 0));
     }
 
     return guests;
@@ -244,9 +244,9 @@ public class HotelDataModel {
    * @return a list of room numbers under certain room Type
    * @throws SQLException if a database access error occurs
    */
-  public static List<Room> getRoomTypeNumbers(Connection connection,
+  public static List<Rooms> getRoomTypeNumbers(Connection connection,
                                                    String hotelName, String hotelAddress, String firstRoomType, String secondRoomType) throws SQLException {
-    List<Room> rooms = new LinkedList<>();
+    List<Rooms> rooms = new LinkedList<>();
     String sql =
             "SELECT roomNumber, roomType, roomCapacity " +
                     "FROM Rooms " +
@@ -259,7 +259,7 @@ public class HotelDataModel {
       ps.setString(4, secondRoomType);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          rooms.add(new Room(
+          rooms.add(new Rooms(
                   rs.getString("roomNumber"),
                   rs.getString("roomType"),
                   false,

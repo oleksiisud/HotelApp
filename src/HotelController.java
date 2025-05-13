@@ -54,11 +54,7 @@ public class HotelController {
             listHotelEvents(connection);
             break;
           case 5:
-            listAllHotels(connection);
-            System.out.print("Hotel name: ");
-            hotelName = in.nextLine().trim();
-            System.out.print("Hotel address: ");
-            hotelAddress = in.nextLine().trim();
+            hotelSelection(connection);
             System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
             firstRoomType = in.nextLine().toLowerCase().trim();
             String anotherRoom;
@@ -78,11 +74,7 @@ public class HotelController {
             listRoomTypeNumbers(connection, hotelName, hotelAddress, firstRoomType, secondRoomType);
             break;
           case 6:
-            listAllHotels(connection);
-            System.out.print("Hotel name: ");
-            hotelName = in.nextLine().trim();
-            System.out.print("Hotel address: ");
-            hotelAddress = in.nextLine().trim();
+            hotelSelection(connection);
             System.out.print("Room type (Standard, Single, Double, Deluxe): ");
             String roomType = in.nextLine().trim().toLowerCase();
             listRoomTypeNumbers(connection, hotelName, hotelAddress, roomType, "");
@@ -128,10 +120,8 @@ public class HotelController {
             listGuestBookings(connection);
             break;
           case 4:
-            System.out.println("Enter Hotel Name:");
-            listAllHotels(connection);
-            hotelName = in.nextLine().trim();
-            listTotalProfit(connection, hotelName);
+            hotelSelection(connection);
+            listTotalProfit(connection, hotelName, hotelAddress);
             break;
           case 5:
             showAvailableRoomTypes(connection);
@@ -145,11 +135,7 @@ public class HotelController {
             listDeluxeGuests(connection, roomType);
             break;
           case 8:
-            listAllHotels(connection);
-            System.out.print("Hotel name: ");
-            hotelName = in.nextLine().trim();
-            System.out.print("Hotel address: ");
-            hotelAddress = in.nextLine().trim();
+            hotelSelection(connection);
             System.out.println("Enter Room Type:\nStandard | Single | Double | Deluxe");
             firstRoomType = in.nextLine().toLowerCase().trim();
             String anotherRoom;
@@ -180,9 +166,13 @@ public class HotelController {
     }
   }
 
-  private static void listAllHotels(Connection connection) throws SQLException {
+  private static void hotelSelection(Connection connection) throws SQLException {
     List<Hotel> hotels = HotelDataModel.getAllHotels(connection);
     HotelView.displayHotels(hotels);
+    System.out.print("Enter the number of Hotel: ");
+    int hotelNumber = Integer.parseInt(in.nextLine().trim());
+    hotelName = hotels.get(hotelNumber-1).getName();
+    hotelAddress = hotels.get(hotelNumber-1).getAddress();
   }
 
   private static void listAllGuests(Connection connection) throws SQLException {
@@ -195,8 +185,8 @@ public class HotelController {
     HotelView.displayGuestBookings(guestBookings);
   }
 
-  private static void listTotalProfit(Connection connection, String hotelName) throws SQLException {
-    List<Booking> totalProfit = HotelDataModel.getTotalProfit(connection, hotelName);
+  private static void listTotalProfit(Connection connection, String hotelName, String hotelAddress) throws SQLException {
+    List<Booking> totalProfit = HotelDataModel.getTotalProfit(connection, hotelName, hotelAddress);
     HotelView.displayTotalProfit(totalProfit);
   }
 
@@ -206,13 +196,13 @@ public class HotelController {
   }
 
   private static void showAvailableRoomTypes(Connection connection) throws SQLException {
-    List<Room> roomTypes = HotelDataModel.getAvailableRoomTypes(connection);
+    List<Rooms> roomTypes = HotelDataModel.getAvailableRoomTypes(connection);
     HotelView.displayAvailableRoomTypes(roomTypes);
   }
 
   private static void listDeluxeGuests(Connection connection, String roomType) throws SQLException {
     roomType = (roomType.substring(0, 1).toUpperCase() + roomType.substring(1));
-    List<Guest> guests = HotelDataModel.getDeluxeGuests(connection, roomType);
+    List<Guests> guests = HotelDataModel.getDeluxeGuests(connection, roomType);
     HotelView.showDeluxeGuests(guests, roomType);
   }
 
@@ -227,7 +217,7 @@ public class HotelController {
   }
 
   private static void listRoomTypeNumbers(Connection connection, String hotelName, String hotelAddress, String firstRoomType, String secondRoomType) throws SQLException {
-    List<Room> roomTypeNumbers = HotelDataModel.getRoomTypeNumbers(
+    List<Rooms> roomTypeNumbers = HotelDataModel.getRoomTypeNumbers(
             connection, hotelName, hotelAddress, firstRoomType, secondRoomType);
     HotelView.displayRoomTypeNumbers(roomTypeNumbers);
     if (roomTypeNumbers.isEmpty()) {

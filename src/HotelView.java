@@ -24,7 +24,8 @@ public class HotelView {
   }
 
   public static String getGuestMenuText() {
-    return "1. [Easy; Ghufran Ali] Room types currently available\n"
+    return "\n\n\n"
+        + "1. [Easy; Ghufran Ali] Room types currently available\n"
         + "2. [Medium; Ghufran Ali] Average cost of bookings in each hotel\n"
         + "3. [Easy; Oleksii Sudarin] Good Hotels rated above 3.0\n"
         + "4. [Medium; Oleksii Sudarin] View all hotel events\n"
@@ -33,7 +34,8 @@ public class HotelView {
         + "0. Exit\n" + "Enter your choice: ";
   }
   public static String getManagerMenuText() {
-    return "1. [Easy; Allen Garcia] Database List\n"
+    return "\n\n\n"
+            + "1. [Easy; Allen Garcia] Database List\n"
             + "2. [Easy; Allen Garcia] List guests and their transaction numbers\n"
             + "3. [Medium; Allen Garcia] List guests with booking over $300\n"
             + "4. [Hard; Allen Garcia] Total profit of a hotel\n"
@@ -55,11 +57,15 @@ public class HotelView {
    * @param hotels the list of hotels to display
    */
   public static void displayHotels(List<Hotel> hotels) {
-    System.out.printf("%s\n", "-".repeat(58));
-    System.out.printf("%-20s | %-35s\n", "Name", "Address");
+    System.out.printf("%s\n", "-".repeat(67));
+    System.out.printf("%-6s | %-20s | %-35s\n", "Number", "Name", "Address");
+    System.out.printf("%s\n", "-".repeat(67));
+    int i = 1;
     for (Hotel hotel : hotels) {
-      System.out.printf("%-20s | %-35s\n", hotel.getName(), hotel.getAddress());
+      System.out.printf("%-6s | %-20s | %-35s\n", i , hotel.getName(), hotel.getAddress());
+      i++;
     }
+    System.out.printf("%s\n", "-".repeat(67));
   }
 
   /**
@@ -87,7 +93,7 @@ public class HotelView {
     System.out.printf("%-20s | %-8s\n", "Name", "Cost");
     System.out.printf("%s\n", "-".repeat(31));
     for (Booking booking : guestBookings) {
-      System.out.printf("%-20s | $%-8.2f%n", booking.getGuestName(), booking.getCost());
+      System.out.printf("%-20s | $%-8.2f%n", booking.getGuestEmailAddress(), booking.getCost());
     }
     System.out.printf("%s\n", "-".repeat(31));
   }
@@ -113,14 +119,14 @@ public class HotelView {
    * @param hotelStatsList list of hotel names and addresses and their avg booking cost
    */
   public static void displayAvgBookingCost(List<HotelStats> hotelStatsList) {
-    System.out.printf("%n%s%n", "-".repeat(77));
-    System.out.printf("%-20s | %-35s | %-16s%n", "Hotel", "Address", "Avg Booking Cost");
-    System.out.printf("%n%s%n", "-".repeat(77));
+    System.out.printf("%n%s%n", "-".repeat(102));
+    System.out.printf("%-20s | %-60s | %-16s%n", "Hotel", "Address", "Avg Booking Cost");
+    System.out.printf("%n%s%n", "-".repeat(102));
     for (HotelStats stat : hotelStatsList) {
-      System.out.printf("%-20s | %-35s | $%-16.2f%n",
+      System.out.printf("%-20s | %-60s | $%-16.2f%n",
               stat.getName(), stat.getAddress(), stat.getAvgBookingCost());
     }
-    System.out.printf("%s%n", "-".repeat(77));
+    System.out.printf("%s%n", "-".repeat(102));
   }
 
   /**
@@ -128,11 +134,11 @@ public class HotelView {
    *
    * @param roomTypes list of room types
    */
-  public static void displayAvailableRoomTypes(List<Room> roomTypes) {
+  public static void displayAvailableRoomTypes(List<Rooms> roomTypes) {
     System.out.printf("%n%s%n", "-".repeat(20));
     System.out.printf("%-20s%n", "Available Room Types");
     System.out.printf("%n%s%n", "-".repeat(20));
-    for (Room room : roomTypes) {
+    for (Rooms room : roomTypes) {
       System.out.printf("%-20s%n", room.getRoomType());
     }
     System.out.printf("%s%n", "-".repeat(20));
@@ -144,11 +150,11 @@ public class HotelView {
    * @param guests list of guest info
    * @param roomType room type of the guests
    */
-  public static void showDeluxeGuests(List<Guest> guests, String roomType) {
+  public static void showDeluxeGuests(List<Guests> guests, String roomType) {
     System.out.printf("%s\n", "-".repeat(58));
     System.out.printf("%-25s | %-30s\n", roomType + " Room Guest Names", "Email Address");
     System.out.printf("%s\n", "-".repeat(58));
-    for (Guest guest : guests) {
+    for (Guests guest : guests) {
       System.out.printf("%-25s | %-30s\n", guest.getName(), guest.getEmailAddress());
     }
     System.out.printf("%s\n", "-".repeat(58));
@@ -160,14 +166,14 @@ public class HotelView {
    * @param hotels list of hotel info and rating
    */
   public static void displayGoodHotels(List<Hotel> hotels) {
-    System.out.printf("%s\n", "-".repeat(67));
-    System.out.printf("%-20s | %-35s | %-6s\n", "Name", "Address", "Rating");
-    System.out.printf("%s\n", "-".repeat(67));
+    System.out.printf("%s\n", "-".repeat(92));
+    System.out.printf("%-20s | %-60s | %-6s\n", "Name", "Address", "Rating");
+    System.out.printf("%s\n", "-".repeat(92));
     for (Hotel hotel : hotels) {
-      System.out.printf("%-20s | %-35s | %-6s\n", hotel.getName(), hotel.getAddress(),
+      System.out.printf("%-20s | %-60s | %-6s\n", hotel.getName(), hotel.getAddress(),
               hotel.getRating());
     }
-    System.out.printf("%s\n", "-".repeat(67));
+    System.out.printf("%s\n", "-".repeat(92));
   }
 
   /**
@@ -192,11 +198,11 @@ public class HotelView {
    * @param rooms list of room number and the type
    */
 
-  public static void displayRoomTypeNumbers(List<Room> rooms) {
+  public static void displayRoomTypeNumbers(List<Rooms> rooms) {
     System.out.printf("%s\n", "-".repeat(39));
     System.out.printf("%-11s | %-9s | %-13s\n", "Room Number", "Room Type", "Room Capacity");
     System.out.printf("%s\n", "-".repeat(39));
-    for (Room room : rooms) {
+    for (Rooms room : rooms) {
       System.out.printf("%-11s | %-9s | %-13s\n", room.getRoomNumber(), room.getRoomType(), room.getRoomCapacity());
     }
     System.out.printf("%s\n", "-".repeat(39));

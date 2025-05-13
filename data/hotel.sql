@@ -1301,9 +1301,6 @@ INSERT INTO Staff (name, emailAddress, position, salary, hotelName, hotelAddress
 /*!40000 ALTER TABLE `Staff` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping routines for database 'Sudarin72_db'
---
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `AddGuestBooking` */;
@@ -1314,7 +1311,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`Sudarin72`@`%` PROCEDURE `AddGuestBooking`(
+CREATE PROCEDURE `AddGuestBooking`(
     IN p_name         VARCHAR(30),
     IN p_email        VARCHAR(150),
     IN p_phone        CHAR(10),
