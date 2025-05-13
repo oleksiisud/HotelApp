@@ -117,10 +117,35 @@ public class HotelController {
           case 1:
             int databaseAction = 0;
             do {
-              System.out.print(HotelView.getManagerMenuText());
+              System.out.print(HotelView.getDBMenuText());
               databaseAction = Integer.parseInt(in.nextLine());
               switch (databaseAction) {
                 case 1:
+                  listHotelEntity(connection);
+                  break;
+                case 2:
+                  listStaffEntity(connection);
+                  break;
+                case 3:
+                  listGuestsEntity(connection);
+                  break;
+                case 4:
+                  listRoomsEntity(connection);
+                  break;
+                case 5:
+                  listBookingEntity(connection);
+                  break;
+                case 6:
+                  listServicesEntity(connection);
+                  break;
+                case 7:
+                  listEventsEntity(connection);
+                  break;
+                case 8:
+                  listAssistanceRelation(connection);
+                  break;
+                case 0:
+                  HotelView.sayGoodbye();
                   break;
                 default:
                   HotelView.promptForInvalidChoice();
@@ -237,6 +262,46 @@ public class HotelController {
     if (roomTypeNumbers.isEmpty()) {
       System.out.println("No rooms available.");
     }
+  }
+
+  private static void listHotelEntity(Connection connection) throws SQLException {
+    List<Hotel> hotel = HotelDataModel.getHotelEntity(connection);
+    HotelView.displayHotelEntity(hotels);
+  }
+
+  private static void listStaffEntity(Connection connection) throws SQLException {
+    List<Staff> staff = HotelDataModel.getStaffEntity(connection);
+    HotelView.displayStaffEntity(staff);
+  }
+
+  private static void listaGuestsEntity(Connection connection) throws SQLException {
+    List<Hotel> guests = HotelDataModel.getGuestsEntity(connection);
+    HotelView.displayGuestsEntity(guests);
+  }
+
+  private static void listRoomsEntity(Connection connection) throws SQLException {
+    List<Hotel> rooms = HotelDataModel.getRoomsEntity(connection);
+    HotelView.displayHotelEntity(rooms);
+  }
+
+  private static void listBookingEntity(Connection connection) throws SQLException {
+    List<Hotel> booking = HotelDataModel.getBookingEntity(connection);
+    HotelView.displayBookingEntity(booking);
+  }
+
+  private static void listServicesEntity(Connection connection) throws SQLException {
+    List<Hotel> services = HotelDataModel.getServicesEntity(connection);
+    HotelView.displayHotelEntity(services);
+  }
+
+  private static void listEvenetsEntity(Connection connection) throws SQLException {
+    List<Hotel> events = HotelDataModel.getEventsEntity(connection);
+    HotelView.displayHotelEntity(events);
+  }
+
+  private static void listAssistanceRelation(Connection connection) throws SQLException {
+    List<Hotel> assistance = HotelDataModel.getAssistanceRelation(connection);
+    HotelView.displayAssistanceRelation(assistance);
   }
 
   /*
