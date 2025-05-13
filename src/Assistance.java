@@ -1,30 +1,19 @@
 public class Assistance {
-    private String staffName; // VARCHAR(30), part of PRIMARY KEY, FOREIGN KEY
     private String staffEmailAddress; // VARCHAR(150), part of PRIMARY KEY, FOREIGN KEY
-    private String guestName; // VARCHAR(30), part of PRIMARY KEY, FOREIGN KEY
+    private String staffPosition; // VARCHAR(30), part of PRIMARY KEY, FOREIGN KEY
     private String guestEmailAddress; // VARCHAR(150), part of PRIMARY KEY, FOREIGN KEY
 
     /**
      * Constructs an Assistance object with specified staff and guest that was assisted.
      *
-     * @param staffName the name of the staff member providing assistance
      * @param staffEmailAddress the email address of the staff member
-     * @param guestName the name of the guest receiving assistance
+     * @param staffPosition the position of the staff member
      * @param guestEmailAddress the email address of the guest
      */
-    public Assistance(String staffName, String staffEmailAddress, String guestName, String guestEmailAddress) {
-        this.staffName = staffName;
+    public Assistance(String staffEmailAddress, String staffPosition, String guestEmailAddress) {
         this.staffEmailAddress = staffEmailAddress;
-        this.guestName = guestName;
+        this.staffPosition = staffPosition;
         this.guestEmailAddress = guestEmailAddress;
-    }
-
-    public String getStaffName() {
-        return staffName;
-    }
-
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
     }
 
     public String getStaffEmailAddress() {
@@ -36,11 +25,11 @@ public class Assistance {
     }
 
     public String getGuestName() {
-        return guestName;
+        return staffPosition;
     }
 
-    public void setGuestName(String guestName) {
-        this.guestName = guestName;
+    public void setGuestName(String staffPosition) {
+        this.staffPosition = staffPosition;
     }
 
     public String getGuestEmailAddress() {

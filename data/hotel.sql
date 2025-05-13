@@ -17,14 +17,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `Sudarin72_db`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `Sudarin72_db` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci */;
-
-USE `Sudarin72_db`;
-
---
 -- Table structure for table `Assistance`
 --
 
@@ -77,7 +69,7 @@ DROP TABLE IF EXISTS `Booking`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Booking` (
   `transactionNumber` char(10) NOT NULL,
-  `guestEmailAddress` varchar(30) DEFAULT NULL,
+  `guestEmailAddress` varchar(150) DEFAULT NULL,
   `cost` decimal(10,2) DEFAULT NULL,
   `roomNumber` char(4) DEFAULT NULL,
   `hotelName` varchar(30) DEFAULT NULL,
@@ -125,7 +117,7 @@ DROP TABLE IF EXISTS `Events`;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Events` (
   `name` varchar(30) NOT NULL,
-  `type` varchar(50) DEFAULT NULL,
+  `type` varchar(15) DEFAULT NULL,
   `time` datetime NOT NULL,
   `hotelName` varchar(30) DEFAULT NULL,
   `hotelAddress` varchar(60) DEFAULT NULL,
@@ -922,7 +914,7 @@ CREATE TABLE `Services` (
   `cost` decimal(10,2) DEFAULT NULL,
   `hotelName` varchar(30) DEFAULT NULL,
   `hotelAddress` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`title`),
+  PRIMARY KEY (`title`,`hotelName`,`hotelAddress`),
   KEY `hotelName` (`hotelName`,`hotelAddress`),
   KEY `ServiceIndex` (`title`,`hotelName`,`hotelAddress`),
   CONSTRAINT `Services_ibfk_1` FOREIGN KEY (`hotelName`, `hotelAddress`) REFERENCES `Hotel` (`name`, `address`)
@@ -935,56 +927,56 @@ CREATE TABLE `Services` (
 
 LOCK TABLES `Services` WRITE;
 /*!40000 ALTER TABLE `Services` DISABLE KEYS */;
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_RoomService', 'Room Service at The Plaza Hotel', 143.99, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_SpaTreatment', 'Spa Treatment at The Plaza Hotel', 94.6, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_Laundry', 'Laundry at The Plaza Hotel', 76.39, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_ValetParking', 'Valet Parking at The Plaza Hotel', 117.36, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_AirportShuttle', 'Airport Shuttle at The Plaza Hotel', 106.87, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_GymAccess', 'Gym Access at The Plaza Hotel', 95.06, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_BreakfastBuffet', 'Breakfast Buffet at The Plaza Hotel', 149.83, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_ConciergeService', 'Concierge Service at The Plaza Hotel', 63.27, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_MiniBar', 'Mini Bar at The Plaza Hotel', 94.15, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PLA_PoolAccess', 'Pool Access at The Plaza Hotel', 26.31, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_RoomService', 'Room Service at The Roosevelt Hotel', 56.32, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_SpaTreatment', 'Spa Treatment at The Roosevelt Hotel', 95.62, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_Laundry', 'Laundry at The Roosevelt Hotel', 75.14, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_ValetParking', 'Valet Parking at The Roosevelt Hotel', 39.73, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_AirportShuttle', 'Airport Shuttle at The Roosevelt Hotel', 69.88, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_GymAccess', 'Gym Access at The Roosevelt Hotel', 70.73, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_BreakfastBuffet', 'Breakfast Buffet at The Roosevelt Hotel', 21.33, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_ConciergeService', 'Concierge Service at The Roosevelt Hotel', 78.75, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_MiniBar', 'Mini Bar at The Roosevelt Hotel', 52.13, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('ROS_PoolAccess', 'Pool Access at The Roosevelt Hotel', 84.22, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_RoomService', 'Room Service at The Beacon Inn', 62.69, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_SpaTreatment', 'Spa Treatment at The Beacon Inn', 103.18, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_Laundry', 'Laundry at The Beacon Inn', 26.81, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_ValetParking', 'Valet Parking at The Beacon Inn', 47.49, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_AirportShuttle', 'Airport Shuttle at The Beacon Inn', 83.41, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_GymAccess', 'Gym Access at The Beacon Inn', 67.98, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_BreakfastBuffet', 'Breakfast Buffet at The Beacon Inn', 116.93, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_ConciergeService', 'Concierge Service at The Beacon Inn', 51.47, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_MiniBar', 'Mini Bar at The Beacon Inn', 105.26, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('BEA_PoolAccess', 'Pool Access at The Beacon Inn', 73.55, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_RoomService', 'Room Service at Pacific Harbor Hotel', 54.47, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_SpaTreatment', 'Spa Treatment at Pacific Harbor Hotel', 55.5, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_Laundry', 'Laundry at Pacific Harbor Hotel', 137.87, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_ValetParking', 'Valet Parking at Pacific Harbor Hotel', 54.62, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_AirportShuttle', 'Airport Shuttle at Pacific Harbor Hotel', 71.62, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_GymAccess', 'Gym Access at Pacific Harbor Hotel', 37.03, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_BreakfastBuffet', 'Breakfast Buffet at Pacific Harbor Hotel', 43.99, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_ConciergeService', 'Concierge Service at Pacific Harbor Hotel', 58.32, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_MiniBar', 'Mini Bar at Pacific Harbor Hotel', 42.34, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('PAC_PoolAccess', 'Pool Access at Pacific Harbor Hotel', 59.29, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_RoomService', 'Room Service at Desert Oasis Resort', 90.06, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_SpaTreatment', 'Spa Treatment at Desert Oasis Resort', 30.55, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_Laundry', 'Laundry at Desert Oasis Resort', 57.37, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_ValetParking', 'Valet Parking at Desert Oasis Resort', 35.8, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_AirportShuttle', 'Airport Shuttle at Desert Oasis Resort', 138.12, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_GymAccess', 'Gym Access at Desert Oasis Resort', 105.42, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_BreakfastBuffet', 'Breakfast Buffet at Desert Oasis Resort', 35.97, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_ConciergeService', 'Concierge Service at Desert Oasis Resort', 98.05, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_MiniBar', 'Mini Bar at Desert Oasis Resort', 96.99, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('DES_PoolAccess', 'Pool Access at Desert Oasis Resort', 84.26, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Room Service', 'Room Service at The Plaza Hotel', 143.99, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Spa Treatment', 'Spa Treatment at The Plaza Hotel', 94.6, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Laundry', 'Laundry at The Plaza Hotel', 76.39, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Valet Parking', 'Valet Parking at The Plaza Hotel', 117.36, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Airport Shuttle', 'Airport Shuttle at The Plaza Hotel', 106.87, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Gym Access', 'Gym Access at The Plaza Hotel', 95.06, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Breakfast Buffet', 'Breakfast Buffet at The Plaza Hotel', 149.83, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Concierge Service', 'Concierge Service at The Plaza Hotel', 63.27, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Mini Bar', 'Mini Bar at The Plaza Hotel', 94.15, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Pool Access', 'Pool Access at The Plaza Hotel', 26.31, 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Room Service', 'Room Service at The Roosevelt Hotel', 56.32, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Spa Treatment', 'Spa Treatment at The Roosevelt Hotel', 95.62, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Laundry', 'Laundry at The Roosevelt Hotel', 75.14, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Valet Parking', 'Valet Parking at The Roosevelt Hotel', 39.73, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Airport Shuttle', 'Airport Shuttle at The Roosevelt Hotel', 69.88, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Gym Access', 'Gym Access at The Roosevelt Hotel', 70.73, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Breakfast Buffet', 'Breakfast Buffet at The Roosevelt Hotel', 21.33, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Concierge Service', 'Concierge Service at The Roosevelt Hotel', 78.75, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Mini Bar', 'Mini Bar at The Roosevelt Hotel', 52.13, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Pool Access', 'Pool Access at The Roosevelt Hotel', 84.22, 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Room Service', 'Room Service at The Beacon Inn', 62.69, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Spa Treatment', 'Spa Treatment at The Beacon Inn', 103.18, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Laundry', 'Laundry at The Beacon Inn', 26.81, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Valet Parking', 'Valet Parking at The Beacon Inn', 47.49, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Airport Shuttle', 'Airport Shuttle at The Beacon Inn', 83.41, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Gym Access', 'Gym Access at The Beacon Inn', 67.98, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Breakfast Buffet', 'Breakfast Buffet at The Beacon Inn', 116.93, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Concierge Service', 'Concierge Service at The Beacon Inn', 51.47, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Mini Bar', 'Mini Bar at The Beacon Inn', 105.26, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Pool Access', 'Pool Access at The Beacon Inn', 73.55, 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Room Service', 'Room Service at Pacific Harbor Hotel', 54.47, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Spa Treatment', 'Spa Treatment at Pacific Harbor Hotel', 55.5, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Laundry', 'Laundry at Pacific Harbor Hotel', 137.87, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Valet Parking', 'Valet Parking at Pacific Harbor Hotel', 54.62, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Airport Shuttle', 'Airport Shuttle at Pacific Harbor Hotel', 71.62, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Gym Access', 'Gym Access at Pacific Harbor Hotel', 37.03, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Breakfast Buffet', 'Breakfast Buffet at Pacific Harbor Hotel', 43.99, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Concierge Service', 'Concierge Service at Pacific Harbor Hotel', 58.32, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Mini Bar', 'Mini Bar at Pacific Harbor Hotel', 42.34, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Pool Access', 'Pool Access at Pacific Harbor Hotel', 59.29, 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Room Service', 'Room Service at Desert Oasis Resort', 90.06, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Spa Treatment', 'Spa Treatment at Desert Oasis Resort', 30.55, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Laundry', 'Laundry at Desert Oasis Resort', 57.37, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Valet Parking', 'Valet Parking at Desert Oasis Resort', 35.8, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Airport Shuttle', 'Airport Shuttle at Desert Oasis Resort', 138.12, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Gym Access', 'Gym Access at Desert Oasis Resort', 105.42, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Breakfast Buffet', 'Breakfast Buffet at Desert Oasis Resort', 35.97, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Concierge Service', 'Concierge Service at Desert Oasis Resort', 98.05, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Mini Bar', 'Mini Bar at Desert Oasis Resort', 96.99, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Services (title, description, cost, hotelName, hotelAddress) VALUES ('Pool Access', 'Pool Access at Desert Oasis Resort', 84.26, 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
 /*!40000 ALTER TABLE `Services` ENABLE KEYS */;
 UNLOCK TABLES;
 

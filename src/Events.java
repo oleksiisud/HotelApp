@@ -1,11 +1,11 @@
 import java.time.LocalDateTime;
 
-public class Event {
+public class Events {
     private String name; // VARCHAR(30), part of PRIMARY KEY
-    private String type; // VARCHAR(50)
+    private String type; // VARCHAR(15)
     private LocalDateTime time; // DATETIME, part of PRIMARY KEY
     private String hotelName; // VARCHAR(30), FOREIGN KEY
-    private String hotelAddress; // VARCHAR(100), FOREIGN KEY
+    private String hotelAddress; // VARCHAR(60), FOREIGN KEY
 
     /**
      * Constructs an Event object with specified details.
@@ -16,7 +16,7 @@ public class Event {
      * @param hotelName the name of the hotel hosting the event
      * @param hotelAddress the address of the hotel hosting the event
      */
-    public Event(String name, String type, LocalDateTime time, String hotelName, String hotelAddress) {
+    public Events(String name, String type, LocalDateTime time, String hotelName, String hotelAddress) {
         this.name = name;
         this.type = type;
         this.time = time;

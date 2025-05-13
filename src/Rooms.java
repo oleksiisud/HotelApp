@@ -1,10 +1,10 @@
-public class Room {
+public class Rooms {
     private String roomNumber; // CHAR(4), PRIMARY KEY
-    private String roomType; // VARCHAR(100)
+    private String roomType; // VARCHAR(8)
     private boolean availability; // BOOLEAN
     private int roomCapacity; // INTEGER
     private String hotelName; // VARCHAR(30), FOREIGN KEY
-    private String hotelAddress; // VARCHAR(100), FOREIGN KEY
+    private String hotelAddress; // VARCHAR(60), FOREIGN KEY
 
     /**
      * Constructs a Room object with specified details.
@@ -16,7 +16,7 @@ public class Room {
      * @param hotelName the name of the hotel the room belongs to
      * @param hotelAddress the address of the hotel the room belongs to
      */
-    public Room(String roomNumber, String roomType, boolean availability, int roomCapacity, String hotelName, String hotelAddress) {
+    public Rooms(String roomNumber, String roomType, boolean availability, int roomCapacity, String hotelName, String hotelAddress) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.availability = availability;

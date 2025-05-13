@@ -1,9 +1,9 @@
-public class Service {
+public class Services {
     private String title; // VARCHAR(10), PRIMARY KEY
     private String description; // TEXT
     private float cost; // DECIMAL(10,2)
     private String hotelName; // VARCHAR(30), FOREIGN KEY
-    private String hotelAddress; // VARCHAR(100), FOREIGN KEY
+    private String hotelAddress; // VARCHAR(60), FOREIGN KEY
 
     /**
      * Constructs a Service object with specified details.
@@ -14,7 +14,7 @@ public class Service {
      * @param hotelName the name of the hotel offering the service
      * @param hotelAddress the address of the hotel offering the service
      */
-    public Service(String title, String description, float cost, String hotelName, String hotelAddress) {
+    public Services(String title, String description, float cost, String hotelName, String hotelAddress) {
         this.title = title;
         this.description = description;
         this.cost = cost;

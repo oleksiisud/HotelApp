@@ -1,7 +1,7 @@
 public class Staff {
     private String name; // VARCHAR(30), PRIMARY KEY
     private String emailAddress; // VARCHAR(150), PRIMARY KEY
-    private String position; // VARCHAR(100)
+    private String position; // VARCHAR(17)
     private float salary; // DECIMAL(10,2)
     private String hotelName; // VARCHAR(30), FOREIGN KEY
     private String hotelAddress; // VARCHAR(100), FOREIGN KEY
