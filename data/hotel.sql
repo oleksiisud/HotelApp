@@ -129,7 +129,7 @@ CREATE TABLE `Events` (
   `time` datetime NOT NULL,
   `hotelName` varchar(30) DEFAULT NULL,
   `hotelAddress` varchar(60) DEFAULT NULL,
-  PRIMARY KEY (`name`,`time`),
+  PRIMARY KEY (`name`,`time`,`hotelName`,`hotelAddress`),
   KEY `hotelName` (`hotelName`,`hotelAddress`),
   CONSTRAINT `Events_ibfk_1` FOREIGN KEY (`hotelName`, `hotelAddress`) REFERENCES `Hotel` (`name`, `address`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -141,56 +141,56 @@ CREATE TABLE `Events` (
 
 LOCK TABLES `Events` WRITE;
 /*!40000 ALTER TABLE `Events` DISABLE KEYS */;
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Live Jazz Night', 'Live Jazz Night', '2025-06-01 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Wine Tasting', 'Wine Tasting', '2025-06-02 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Art Exhibition', 'Art Exhibition', '2025-06-03 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Business Seminar', 'Business Seminar', '2025-06-04 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Cooking Class', 'Cooking Class', '2025-06-05 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Yoga Session', 'Yoga Session', '2025-06-06 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Stand-up Comedy', 'Stand-up Comedy', '2025-06-07 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Movie Screening', 'Movie Screening', '2025-06-08 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Networking Mixer', 'Networking Mixer', '2025-06-09 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Plaza Hotel Charity Gala', 'Charity Gala', '2025-06-10 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Live Jazz Night', 'Live Jazz Night', '2025-06-01 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Wine Tasting', 'Wine Tasting', '2025-06-02 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Art Exhibition', 'Art Exhibition', '2025-06-03 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Business Seminar', 'Business Seminar', '2025-06-04 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Cooking Class', 'Cooking Class', '2025-06-05 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Yoga Session', 'Yoga Session', '2025-06-06 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Stand-up Comedy', 'Stand-up Comedy', '2025-06-07 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Movie Screening', 'Movie Screening', '2025-06-08 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Networking Mixer', 'Networking Mixer', '2025-06-09 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Roosevelt Hotel Charity Gala', 'Charity Gala', '2025-06-10 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Live Jazz Night', 'Live Jazz Night', '2025-06-01 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Wine Tasting', 'Wine Tasting', '2025-06-02 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Art Exhibition', 'Art Exhibition', '2025-06-03 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Business Seminar', 'Business Seminar', '2025-06-04 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Cooking Class', 'Cooking Class', '2025-06-05 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Yoga Session', 'Yoga Session', '2025-06-06 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Stand-up Comedy', 'Stand-up Comedy', '2025-06-07 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Movie Screening', 'Movie Screening', '2025-06-08 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Networking Mixer', 'Networking Mixer', '2025-06-09 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('The Beacon Inn Charity Gala', 'Charity Gala', '2025-06-10 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Live Jazz Night', 'Live Jazz Night', '2025-06-01 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Wine Tasting', 'Wine Tasting', '2025-06-02 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Art Exhibition', 'Art Exhibition', '2025-06-03 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Business Seminar', 'Business Seminar', '2025-06-04 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Cooking Class', 'Cooking Class', '2025-06-05 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Yoga Session', 'Yoga Session', '2025-06-06 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Stand-up Comedy', 'Stand-up Comedy', '2025-06-07 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Movie Screening', 'Movie Screening', '2025-06-08 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Networking Mixer', 'Networking Mixer', '2025-06-09 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Pacific Harbor Hotel Charity Gala', 'Charity Gala', '2025-06-10 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Live Jazz Night', 'Live Jazz Night', '2025-06-01 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Wine Tasting', 'Wine Tasting', '2025-06-02 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Art Exhibition', 'Art Exhibition', '2025-06-03 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Business Seminar', 'Business Seminar', '2025-06-04 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Cooking Class', 'Cooking Class', '2025-06-05 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Yoga Session', 'Yoga Session', '2025-06-06 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Stand-up Comedy', 'Stand-up Comedy', '2025-06-07 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Movie Screening', 'Movie Screening', '2025-06-08 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Networking Mixer', 'Networking Mixer', '2025-06-09 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
-INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Desert Oasis Resort Charity Gala', 'Charity Gala', '2025-06-10 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Live Jazz Night', 'Music', '2025-06-01 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Summer Wine Tasting', 'Food & Drink', '2025-06-02 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Art Exhibition: Modern Masters', 'Art', '2025-06-03 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Seminar: Startup 101', 'Business', '2025-06-04 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Cooking Class: Italian Cuisine', 'Food & Drink', '2025-06-05 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Sunrise Yoga Session', 'Wellness', '2025-06-06 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Comedy Night with Local Stars', 'Entertainment', '2025-06-07 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Outdoor Movie Screening', 'Entertainment', '2025-06-08 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Networking Mixer', 'Business', '2025-06-09 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Charity Gala Ball', 'Charity', '2025-06-10 18:00:00', 'The Plaza Hotel', '768 5th Ave, New York, NY 10019');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Live Jazz Night', 'Music', '2025-06-01 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Summer Wine Tasting', 'Food & Drink', '2025-06-02 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Art Exhibition: Modern Masters', 'Art', '2025-06-03 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Seminar: Startup 101', 'Business', '2025-06-04 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Cooking Class: Italian Cuisine', 'Food & Drink', '2025-06-05 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Sunrise Yoga Session', 'Wellness', '2025-06-06 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Comedy Night with Local Stars', 'Entertainment', '2025-06-07 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Outdoor Movie Screening', 'Entertainment', '2025-06-08 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Networking Mixer', 'Business', '2025-06-09 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Charity Gala Ball', 'Charity', '2025-06-10 18:00:00', 'The Roosevelt Hotel', '123 S Michigan Ave, Chicago, IL 60603');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Live Jazz Night', 'Music', '2025-06-01 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Summer Wine Tasting', 'Food & Drink', '2025-06-02 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Art Exhibition: Modern Masters', 'Art', '2025-06-03 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Seminar: Startup 101', 'Business', '2025-06-04 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Cooking Class: Italian Cuisine', 'Food & Drink', '2025-06-05 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Sunrise Yoga Session', 'Wellness', '2025-06-06 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Comedy Night with Local Stars', 'Entertainment', '2025-06-07 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Outdoor Movie Screening', 'Entertainment', '2025-06-08 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Networking Mixer', 'Business', '2025-06-09 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Charity Gala Ball', 'Charity', '2025-06-10 18:00:00', 'The Beacon Inn', '250 Beacon St, Boston, MA 02116');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Live Jazz Night', 'Music', '2025-06-01 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Summer Wine Tasting', 'Food & Drink', '2025-06-02 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Art Exhibition: Modern Masters', 'Art', '2025-06-03 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Seminar: Startup 101', 'Business', '2025-06-04 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Cooking Class: Italian Cuisine', 'Food & Drink', '2025-06-05 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Sunrise Yoga Session', 'Wellness', '2025-06-06 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Comedy Night with Local Stars', 'Entertainment', '2025-06-07 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Outdoor Movie Screening', 'Entertainment', '2025-06-08 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Networking Mixer', 'Business', '2025-06-09 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Charity Gala Ball', 'Charity', '2025-06-10 18:00:00', 'Pacific Harbor Hotel', '101 Embarcadero, San Francisco, CA 94105');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Live Jazz Night', 'Music', '2025-06-01 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Summer Wine Tasting', 'Food & Drink', '2025-06-02 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Art Exhibition: Modern Masters', 'Art', '2025-06-03 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Seminar: Startup 101', 'Business', '2025-06-04 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Cooking Class: Italian Cuisine', 'Food & Drink', '2025-06-05 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Sunrise Yoga Session', 'Wellness', '2025-06-06 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Comedy Night with Local Stars', 'Entertainment', '2025-06-07 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Outdoor Movie Screening', 'Entertainment', '2025-06-08 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Business Networking Mixer', 'Business', '2025-06-09 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
+INSERT INTO Events (name, type, time, hotelName, hotelAddress) VALUES ('Charity Gala Ball', 'Charity', '2025-06-10 18:00:00', 'Desert Oasis Resort', '500 E Camelback Rd, Phoenix, AZ 85016');
 /*!40000 ALTER TABLE `Events` ENABLE KEYS */;
 UNLOCK TABLES;
 
