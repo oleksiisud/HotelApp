@@ -66,13 +66,13 @@ public class HotelDataModel {
   public static List<HotelGuest> getHotelGuests(Connection connection) throws SQLException {
     List<HotelGuest> hotelGuestList = new LinkedList<HotelGuest>();
 
-    String sql = "SELECT Guests.name, Booking.transactionNumber " +
-            "FROM Guests INNER JOIN Booking " +
-            "ON Guests.emailAddress = Booking.guestEmailAddress";
+    String sql = "SELECT Booking.transactionNumber, Guests.name " +
+            "FROM Booking INNER JOIN Guests " +
+            "ON Booking.guestEmailAddress = Guests.emailAddress";
     PreparedStatement pstmt = connection.prepareStatement(sql);
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
-      hotelGuestList.add(new HotelGuest(resultSet.getString("name"), resultSet.getString("transactionNumber"), 0));
+      hotelGuestList.add(new HotelGuest(resultSet.getString("transactionNumber"), resultSet.getString("name"), 0));
     }
     return hotelGuestList;
   }
@@ -87,7 +87,10 @@ public class HotelDataModel {
   public static List<HotelGuest> getGuestBookings(Connection connection) throws SQLException {
     List<HotelGuest> guestBookingList = new LinkedList<HotelGuest>();
 
-    String sql = "SELECT Guests.name, Booking.cost FROM Booking WHERE cost > 300";
+    String sql = "SELECT Guests.name, Booking.cost " +
+            "FROM Guests INNER JOIN Booking " +
+            "ON Guests.emailAddress = Booking.guestEmailAddress " +
+            "WHERE cost > 300";
     PreparedStatement pstmt = connection.prepareStatement(sql);
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
@@ -176,6 +179,7 @@ public class HotelDataModel {
 
     String sql = "SELECT DISTINCT Guests.name, Guests.emailAddress " +
             "FROM Guests INNER JOIN Booking ON Guests.emailAddress = Booking.guestEmailAddress " +
+            "INNER JOIN Rooms ON Booking.roomNumber = Rooms.roomNumber " +
             "WHERE roomType = '" + roomType + "'";
 
     PreparedStatement pstmt = connection.prepareStatement(sql);
