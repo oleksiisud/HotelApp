@@ -37,7 +37,7 @@ public class HotelDataModel {
   }
 
   /**
-   * Retrieves all movies from the database. This is an example.
+   * Retrieves all hotels from the database.
    *
    * @param connection the database connection
    * @return a list of hotels
@@ -54,6 +54,110 @@ public class HotelDataModel {
           null, 0));
     }
     return hotelList;
+  }
+
+  public static List<Hotel> getHotelEntity(Connection connection) throws SQLException {
+    List<Hotel> hotelList = new LinkedList<Hotel>();
+
+    String sql = "SELECT * FROM Hotel";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      hotelList.add(new Hotel(resultSet.getString("name"), resultSet.getString("address"),
+          resultSet.getString("phoneNumber"), resultSet.getFloat("rating")));
+    }
+    return hotelList;
+  }
+
+  public static List<Staff> getStaffEntity(Connection connection) throws SQLException {
+    List<Staff> staffList = new LinkedList<Staff>();
+
+    String sql = "SELECT * FROM Staff";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      staffList.add(new Staff(resultSet.getString("name"), resultSet.getString("emailAddress"),
+          resultSet.getString("position"), resultSet.getFloat("salary"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+    }
+    return staffList;
+  }
+
+  public static List<Guests> getGuestsEntity(Connection connection) throws SQLException {
+    List<Guests> guestList = new LinkedList<Guests>();
+
+    String sql = "SELECT * FROM Guests";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      guestList.add(new Guests(resultSet.getString("name"), resultSet.getString("emailAddress"),
+          resultSet.getString("phoneNumber"), resultSet.getInt("partySize")));
+    }
+    return guestList;
+  }
+
+  public static List<Rooms> getRoomsEntity(Connection connection) throws SQLException {
+    List<Rooms> rooms = new LinkedList<Rooms>();
+
+    String sql = "SELECT * FROM Rooms";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      rooms.add(new Rooms(resultSet.getString("roomNumber"), resultSet.getString("roomType"),
+          resultSet.getBoolean("availabilty"), resultSet.getInt("roomCapacity"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+    }
+    return rooms;
+  }
+
+  public static List<Booking> getBookingEntity(Connection connection) throws SQLException {
+    List<Booking> booking = new LinkedList<Booking>();
+
+    String sql = "SELECT * FROM Booking";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      booking.add(new Booking(resultSet.getString("transactionNumber"), resultSet.getString("guestEmailAddress"),
+          resultSet.getFloat("cost"), resultSet.getString("roomNumber"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+    }
+    return booking;
+  }
+
+  public static List<Services> getServicesEntity(Connection connection) throws SQLException {
+    List<Booking> services = new LinkedList<Services>();
+
+    String sql = "SELECT * FROM Services";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      services.add(new Services(resultSet.getString("title"), resultSet.getString("description"),
+          resultSet.getFloat("cost"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+    }
+    return services;
+  }
+
+  public static List<Events> getEventsEntity(Connection connection) throws SQLException {
+    List<Events> events = new LinkedList<Events>();
+
+    String sql = "SELECT * FROM Events";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      events.add(new Events(resultSet.getString("name"), resultSet.getString("type"),
+          resultSet.getLocalDateTime("time"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+    }
+    return events;
+  }
+
+  public static List<Assistance> getAssistanceRelation(Connection connection) throws SQLException {
+    List<Assistance> assistance = new LinkedList<Assistance>();
+
+    String sql = "SELECT * FROM Assistance";
+    PreparedStatement pstmt = connection.prepareStatement(sql);
+    ResultSet resultSet = pstmt.executeQuery();
+    while (resultSet.next()) {
+      assistance.add(new Assistance(resultSet.getString("staffEmailAddress"), resultSet.getString("staffPosition"),
+          resultSet.getString("guestEmailAddress")));
+    }
+    return assistance;
   }
 
   /**
