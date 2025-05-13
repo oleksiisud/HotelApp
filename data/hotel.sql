@@ -1349,14 +1349,13 @@ BEGIN
 END ;;
 DELIMITER ;
 CREATE PROCEDURE `AddAssistance`(
-    IN p_staffName VARCHAR(30),
     IN p_staffEmailAddress VARCHAR(150),
-    IN p_guestName VARCHAR(30),
+    IN p_staffPosition VARCHAR(17),
     IN p_guestEmailAddress VARCHAR(150)
 )
 BEGIN
-    INSERT INTO Assistance (staffName, staffEmailAddress, guestName, guestEmailAddress)
-    VALUES (p_staffName, p_staffEmailAddress, p_guestName, p_guestEmailAddress);
+    INSERT INTO Assistance (staffEmailAddress, staffPosition, guestEmailAddress)
+    VALUES (p_staffEmailAddress, p_staffPosition, p_guestEmailAddress);
 END;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

@@ -18,6 +18,7 @@ public class HotelController {
   private static String hotelAddress;
   private static String staffName;
   private static String staffEmailAddress;
+  private static String staffPosition;
   private static String guestName;
   private static String guestEmailAddress;
 
@@ -200,7 +201,7 @@ public class HotelController {
             hotelSelection(connection);
             staffSelection(connection);
             guestSelection(connection);
-            HotelDataModel.addAssistance(connection, staffName, staffEmailAddress, guestEmailAddress);
+            HotelDataModel.addAssistance(connection, staffName, staffEmailAddress, staffPosition, guestEmailAddress);
             break;
           case 0:
             HotelView.sayGoodbye();
@@ -228,6 +229,7 @@ public class HotelController {
     int sChoice = Integer.parseInt(in.nextLine().trim());
     staffName = staffList.get(sChoice - 1).getName();
     staffEmailAddress = staffList.get(sChoice - 1).getEmailAddress();
+    staffPosition = staffList.get(sChoice - 1).getPosition();
   }
 
   private static void guestSelection(Connection connection) throws SQLException {

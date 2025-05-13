@@ -476,7 +476,7 @@ public class HotelDataModel {
     }
   }
 
-  public static void addAssistance(Connection connection, String staffName, String staffEmail, String guestEmail) throws SQLException {
+  public static void addAssistance(Connection connection, String staffName, String staffEmail, String staffPosition, String guestEmail) throws SQLException {
     Scanner in = new Scanner(System.in);
 
     String guestName = "";
@@ -521,10 +521,9 @@ public class HotelDataModel {
     }
 
     try (CallableStatement cs = connection.prepareCall("{CALL AddAssistance(?, ?, ?, ?)}")) {
-      cs.setString(1, staffName);
-      cs.setString(2, staffEmail);
-      cs.setString(3, guestName);
-      cs.setString(4, guestEmail);
+      cs.setString(1, staffEmail);
+      cs.setString(2, staffPosition);
+      cs.setString(3, guestEmail);
       cs.execute();
     }
 
