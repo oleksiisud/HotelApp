@@ -294,7 +294,7 @@ public class HotelController {
     HotelView.displayHotelEntity(services);
   }
 
-  private static void listEvenetsEntity(Connection connection) throws SQLException {
+  private static void listEventsEntity(Connection connection) throws SQLException {
     List<Hotel> events = HotelDataModel.getEventsEntity(connection);
     HotelView.displayHotelEntity(events);
   }
