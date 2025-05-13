@@ -1311,6 +1311,7 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
+DROP PROCEDURE IF EXISTS `AddGuestBooking`;;
 CREATE PROCEDURE `AddGuestBooking`(
     IN p_name         VARCHAR(30),
     IN p_email        VARCHAR(150),
@@ -1347,7 +1348,7 @@ BEGIN
      AND hotelName    = p_hotelName
      AND hotelAddress = p_hotelAddress;
 END ;;
-DELIMITER ;
+DROP PROCEDURE IF EXISTS `AddAssistance`;;
 CREATE PROCEDURE `AddAssistance`(
     IN p_staffEmailAddress VARCHAR(150),
     IN p_staffPosition VARCHAR(17),
