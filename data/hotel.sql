@@ -1373,6 +1373,16 @@ BEGIN
         SELECT 1 AS retcode, 'Room not available.' AS retmsg;
     END IF;
 END ;;
+CREATE PROCEDURE AddAssistance(
+    IN p_staffName VARCHAR(30),
+    IN p_staffEmailAddress VARCHAR(150),
+    IN p_guestName VARCHAR(30),
+    IN p_guestEmailAddress VARCHAR(150)
+)
+BEGIN
+    INSERT INTO Assistance (staffName, staffEmailAddress, guestName, guestEmailAddress)
+    VALUES (p_staffName, p_staffEmailAddress, p_guestName, p_guestEmailAddress);
+END;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
