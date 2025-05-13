@@ -92,25 +92,25 @@ public class HotelView {
   }
 
   public static void displayStaffEntity(List<Staff> staffList) {
-    System.out.printf("%s\n", "-".repeat(172));
-    System.out.printf("%-20s | %-30s | %-17s | %-10s | %-20s | %-60s\n", "Name", "Email Address", "Position", "Salary", "Hotel Name", "Hotel Address");
-    System.out.printf("%s\n", "-".repeat(172));
+    System.out.printf("%s\n", "-".repeat(182));
+    System.out.printf("%-20s | %-40s | %-17s | %-10s | %-20s | %-60s\n", "Name", "Email Address", "Position", "Salary", "Hotel Name", "Hotel Address");
+    System.out.printf("%s\n", "-".repeat(182));
     for (Staff staff : staffList) {
-      System.out.printf("%-20s | %-30s | %-17s | %-10s | %-20s | %-60s\n", staff.getName(), staff.getEmailAddress(),
+      System.out.printf("%-20s | %-40s | %-17s | %-10s | %-20s | %-60s\n", staff.getName(), staff.getEmailAddress(),
               staff.getPosition(), staff.getSalary(), staff.getHotelName(), staff.getHotelAddress());
     }
-    System.out.printf("%s\n", "-".repeat(172));
+    System.out.printf("%s\n", "-".repeat(182));
   }
 
   public static void displayGuestsEntity(List<Guests> guestList) {
-    System.out.printf("%s\n", "-".repeat(81));
-    System.out.printf("%-20s | %-30s | %-12s | %-10s\n", "Name", "Email Address", "Phone Number", "Party Size");
-    System.out.printf("%s\n", "-".repeat(81));
+    System.out.printf("%s\n", "-".repeat(91));
+    System.out.printf("%-20s | %-40s | %-12s | %-10s\n", "Name", "Email Address", "Phone Number", "Party Size");
+    System.out.printf("%s\n", "-".repeat(91));
     for (Guests guest : guestList) {
-      System.out.printf("%-20s | %-30s | %-12s | %-10s\n", guest.getName(), guest.getEmailAddress(),
+      System.out.printf("%-20s | %-40s | %-12s | %-10s\n", guest.getName(), guest.getEmailAddress(),
               guest.getPhoneNumber(), guest.getPartySize());
     }
-    System.out.printf("%s\n", "-".repeat(81));
+    System.out.printf("%s\n", "-".repeat(91));
   }
 
   public static void displayRoomsEntity(List<Rooms> rooms) {
@@ -125,14 +125,14 @@ public class HotelView {
   }
 
   public static void displayBookingEntity(List<Booking> bookings) {
-    System.out.printf("%s\n", "-".repeat(164));
-    System.out.printf("%-18s | %-30s | %-10s | %-11s | %-20s | %-60s\n", "Transaction Number", "Guest Email Address", "Cost", "Room Number", "Hotel Name", "Hotel Address");
-    System.out.printf("%s\n", "-".repeat(164));
+    System.out.printf("%s\n", "-".repeat(174));
+    System.out.printf("%-18s | %-40s | %-10s | %-11s | %-20s | %-60s\n", "Transaction Number", "Guest Email Address", "Cost", "Room Number", "Hotel Name", "Hotel Address");
+    System.out.printf("%s\n", "-".repeat(174));
     for (Booking booking : bookings) {
-      System.out.printf("%-18s | %-30s | %-10s | %-11s | %-20s | %-60s\n", booking.getTransactionNumber(), booking.getGuestEmailAddress(),
+      System.out.printf("%-18s | %-40s | %-10s | %-11s | %-20s | %-60s\n", booking.getTransactionNumber(), booking.getGuestEmailAddress(),
               booking.getCost(), booking.getRoomNumber(), booking.getHotelName(), booking.getHotelAddress());
     }
-    System.out.printf("%s\n", "-".repeat(164));
+    System.out.printf("%s\n", "-".repeat(174));
   }
 
   public static void displayServicesEntity(List<Services> services) {
@@ -158,14 +158,14 @@ public class HotelView {
   }
 
   public static void displayAssistanceRelation(List<Assistance> assistanceList) {
-    System.out.printf("%s\n", "-".repeat(110));
-    System.out.printf("%-30s | %-17s | %-30s\n", "Staff Email Address", "Staff Position", "Guest Email Address");
-    System.out.printf("%s\n", "-".repeat(110));
+    System.out.printf("%s\n", "-".repeat(130));
+    System.out.printf("%-40s | %-17s | %-40s\n", "Staff Email Address", "Staff Position", "Guest Email Address");
+    System.out.printf("%s\n", "-".repeat(130));
     for (Assistance assistance : assistanceList) {
-      System.out.printf("%-30s | %-17s | %-30s\n", assistance.getStaffEmailAddress(), assistance.getStaffPosition(),
+      System.out.printf("%-40s | %-17s | %-40s\n", assistance.getStaffEmailAddress(), assistance.getStaffPosition(),
               assistance.getGuestEmailAddress());
     }
-    System.out.printf("%s\n", "-".repeat(110));
+    System.out.printf("%s\n", "-".repeat(130));
   }
 
   /**
@@ -251,13 +251,13 @@ public class HotelView {
    * @param roomType room type of the guests
    */
   public static void showDeluxeGuests(List<HotelGuest> guests, String roomType) {
-    System.out.printf("%s\n", "-".repeat(58));
-    System.out.printf("%-25s | %-30s\n", roomType + " Room Guest Names", "Email Address");
-    System.out.printf("%s\n", "-".repeat(58));
+    System.out.printf("%s\n", "-".repeat(68));
+    System.out.printf("%-25s | %-40s\n", roomType + " Room Guest Names", "Email Address");
+    System.out.printf("%s\n", "-".repeat(68));
     for (HotelGuest guest : guests) {
-      System.out.printf("%-25s | %-30s\n", guest.getGuestName(), guest.getGuestTransactionNo());
+      System.out.printf("%-25s | %-40s\n", guest.getGuestName(), guest.getGuestTransactionNo());
     }
-    System.out.printf("%s\n", "-".repeat(58));
+    System.out.printf("%s\n", "-".repeat(68));
   }
 
   /**
@@ -306,6 +306,30 @@ public class HotelView {
       System.out.printf("%-11s | %-9s | %-13s\n", room.getRoomNumber(), room.getRoomType(), room.getRoomCapacity());
     }
     System.out.printf("%s\n", "-".repeat(39));
+  }
+
+  public static void displayStaffbyHotel(List<Staff> staffList) {
+    System.out.printf("%s\n", "-".repeat(92));
+    System.out.printf("%-6s | %-20s | %-40s | %-17s\n", "Number", "Name", "Email Address", "Position");
+    System.out.printf("%s\n", "-".repeat(92));
+    int i = 1;
+    for (Staff staff : staffList) {
+      System.out.printf("%-6s | %-20s | %-40s | %-17s\n", i, staff.getName(), staff.getEmailAddress(), staff.getPosition());
+      i++;
+    }
+    System.out.printf("%s\n", "-".repeat(92));
+  }
+
+  public static void displayGuestsbyHotel(List<Guests> guestList) {
+    System.out.printf("%s\n", "-".repeat(72));
+    System.out.printf("%-6s | %-20s | %-40s\n", "Number", "Name", "Email Address");
+    System.out.printf("%s\n", "-".repeat(72));
+    int i = 1;
+    for (Guests guest : guestList) {
+      System.out.printf("%-6s | %-20s | %-40s\n", i, guest.getName(), guest.getEmailAddress());
+      i++;
+    }
+    System.out.printf("%s\n", "-".repeat(72));
   }
 
   public static void displayBookingConfirmation(String txnNo) {

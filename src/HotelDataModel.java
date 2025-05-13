@@ -104,7 +104,7 @@ public class HotelDataModel {
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
       rooms.add(new Rooms(resultSet.getString("roomNumber"), resultSet.getString("roomType"),
-          resultSet.getBoolean("availabilty"), resultSet.getInt("roomCapacity"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+          resultSet.getBoolean("availability"), resultSet.getInt("roomCapacity"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
     }
     return rooms;
   }
@@ -335,8 +335,8 @@ public class HotelDataModel {
     PreparedStatement pstmt = connection.prepareStatement(sql);
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
-      hotelEventList.add(new HotelEvent(resultSet.getString("name"), resultSet.getString("address"),
-              resultSet.getString("name")));
+      hotelEventList.add(new HotelEvent(resultSet.getString("Hotel.name"), resultSet.getString("address"),
+              resultSet.getString("Events.name")));
     }
     return hotelEventList;
   }
@@ -529,5 +529,40 @@ public class HotelDataModel {
     }
 
     System.out.printf("Assistance added successfully for guest: %s with staff: %s\n", guestName, staffName);
+  }
+  public static List<Staff> getStaffByHotel(Connection conn, String hotelName, String hotelAddress) throws SQLException {
+    List<Staff> staffList = new LinkedList<>();
+    String sql =
+            "SELECT name, emailAddress, position " +
+                    "FROM Staff " +
+                    "WHERE hotelName = ? AND hotelAddress = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+      ps.setString(1, hotelName);
+      ps.setString(2, hotelAddress);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          staffList.add(new Staff(rs.getString("name"), rs.getString("emailAddress"), rs.getString("position"), 0, hotelName, hotelAddress));
+        }
+      }
+    }
+    return staffList;
+  }
+  public static List<Guests> getBookedGuestsByHotel(Connection conn, String hotelName, String hotelAddress) throws SQLException {
+    List<Guests> guests = new LinkedList<>();
+    String sql =
+            "SELECT Guests.name, Guests.emailAddress " +
+                    "FROM Guests INNER JOIN Booking " +
+                    "ON Booking.guestEmailAddress = Guests.emailAddress " +
+                    "WHERE Booking.hotelName = ? AND Booking.hotelAddress = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+      ps.setString(1, hotelName);
+      ps.setString(2, hotelAddress);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          guests.add(new Guests(rs.getString("name"), rs.getString("emailAddress"), "", 0));
+        }
+      }
+    }
+    return guests;
   }
 }

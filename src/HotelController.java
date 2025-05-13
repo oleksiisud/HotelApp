@@ -16,6 +16,10 @@ public class HotelController {
   private static String secondRoomType;
   private static String hotelName;
   private static String hotelAddress;
+  private static String staffName;
+  private static String staffEmailAddress;
+  private static String guestName;
+  private static String guestEmailAddress;
 
   /**
    * Controls the main loop of the hotel application.
@@ -194,20 +198,9 @@ public class HotelController {
             break;
           case 9:
             hotelSelection(connection);
-
-            System.out.print("Enter staff name: ");
-            String staffName = in.nextLine().trim();
-
-            System.out.print("Enter staff email: ");
-            String staffEmail = in.nextLine().trim();
-
-            System.out.print("Enter guest email: ");
-            String guestEmail = in.nextLine().trim();
-
-            HotelDataModel.addAssistance(connection, staffName, staffEmail, guestEmail);
-
-            System.out.printf("Assistance recorded for hotel: %s, staff: %s, guest: %s\n",
-                    hotelName, staffName, guestEmail);
+            staffSelection(connection);
+            guestSelection(connection);
+            HotelDataModel.addAssistance(connection, staffName, staffEmailAddress, guestEmailAddress);
             break;
           case 0:
             HotelView.sayGoodbye();
@@ -226,6 +219,24 @@ public class HotelController {
     int hotelNumber = Integer.parseInt(in.nextLine().trim());
     hotelName = hotels.get(hotelNumber-1).getName();
     hotelAddress = hotels.get(hotelNumber-1).getAddress();
+  }
+
+  private static void staffSelection(Connection connection) throws SQLException {
+    List<Staff> staffList = HotelDataModel.getStaffByHotel(connection, hotelName, hotelAddress);
+    HotelView.displayStaffbyHotel(staffList);
+    System.out.print("Enter number: ");
+    int sChoice = Integer.parseInt(in.nextLine().trim());
+    staffName = staffList.get(sChoice - 1).getName();
+    staffEmailAddress = staffList.get(sChoice - 1).getEmailAddress();
+  }
+
+  private static void guestSelection(Connection connection) throws SQLException {
+    List<Guests> guestList = HotelDataModel.getBookedGuestsByHotel(connection, hotelName, hotelAddress);
+    HotelView.displayGuestsbyHotel(guestList);
+    System.out.print("Enter number: ");
+    int gChoice = Integer.parseInt(in.nextLine().trim());
+    guestName = guestList.get(gChoice - 1).getName();
+    guestEmailAddress = guestList.get(gChoice - 1).getEmailAddress();
   }
 
   private static void listAllGuests(Connection connection) throws SQLException {
