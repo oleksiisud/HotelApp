@@ -24,11 +24,11 @@ public class Assistance {
         this.staffEmailAddress = staffEmailAddress;
     }
 
-    public String getGuestName() {
+    public String getStaffPosition() {
         return staffPosition;
     }
 
-    public void setGuestName(String staffPosition) {
+    public void setStaffPosition(String staffPosition) {
         this.staffPosition = staffPosition;
     }
 

@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 /**
  * This class provides methods to interact with the hotel database. Along with a few other classes,
@@ -122,7 +123,7 @@ public class HotelDataModel {
   }
 
   public static List<Services> getServicesEntity(Connection connection) throws SQLException {
-    List<Booking> services = new LinkedList<Services>();
+    List<Services> services = new LinkedList<Services>();
 
     String sql = "SELECT * FROM Services";
     PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -142,7 +143,7 @@ public class HotelDataModel {
     ResultSet resultSet = pstmt.executeQuery();
     while (resultSet.next()) {
       events.add(new Events(resultSet.getString("name"), resultSet.getString("type"),
-          resultSet.getLocalDateTime("time"), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
+          resultSet.getTimestamp("time").toLocalDateTime(), resultSet.getString("hotelName"), resultSet.getString("hotelAddress")));
     }
     return events;
   }

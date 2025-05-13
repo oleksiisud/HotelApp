@@ -265,7 +265,7 @@ public class HotelController {
   }
 
   private static void listHotelEntity(Connection connection) throws SQLException {
-    List<Hotel> hotel = HotelDataModel.getHotelEntity(connection);
+    List<Hotel> hotels = HotelDataModel.getHotelEntity(connection);
     HotelView.displayHotelEntity(hotels);
   }
 
@@ -274,91 +274,33 @@ public class HotelController {
     HotelView.displayStaffEntity(staff);
   }
 
-  private static void listaGuestsEntity(Connection connection) throws SQLException {
-    List<Hotel> guests = HotelDataModel.getGuestsEntity(connection);
+  private static void listGuestsEntity(Connection connection) throws SQLException {
+    List<Guests> guests = HotelDataModel.getGuestsEntity(connection);
     HotelView.displayGuestsEntity(guests);
   }
 
   private static void listRoomsEntity(Connection connection) throws SQLException {
-    List<Hotel> rooms = HotelDataModel.getRoomsEntity(connection);
-    HotelView.displayHotelEntity(rooms);
+    List<Rooms> rooms = HotelDataModel.getRoomsEntity(connection);
+    HotelView.displayRoomsEntity(rooms);
   }
 
   private static void listBookingEntity(Connection connection) throws SQLException {
-    List<Hotel> booking = HotelDataModel.getBookingEntity(connection);
+    List<Booking> booking = HotelDataModel.getBookingEntity(connection);
     HotelView.displayBookingEntity(booking);
   }
 
   private static void listServicesEntity(Connection connection) throws SQLException {
-    List<Hotel> services = HotelDataModel.getServicesEntity(connection);
-    HotelView.displayHotelEntity(services);
+    List<Services> services = HotelDataModel.getServicesEntity(connection);
+    HotelView.displayServicesEntity(services);
   }
 
   private static void listEventsEntity(Connection connection) throws SQLException {
-    List<Hotel> events = HotelDataModel.getEventsEntity(connection);
-    HotelView.displayHotelEntity(events);
+    List<Events> events = HotelDataModel.getEventsEntity(connection);
+    HotelView.displayEventsEntity(events);
   }
 
   private static void listAssistanceRelation(Connection connection) throws SQLException {
-    List<Hotel> assistance = HotelDataModel.getAssistanceRelation(connection);
+    List<Assistance> assistance = HotelDataModel.getAssistanceRelation(connection);
     HotelView.displayAssistanceRelation(assistance);
   }
-
-  /*
-  private static void listAllStudios(Connection connection) throws SQLException {
-    List<Studio> studios = MovieDataModel.getAllStudios(connection);
-    MovieView.displayStudios(studios);
-  }
-
-  private static void listAmblinStudios(Connection connection) throws SQLException {
-    List<Studio> studios = MovieDataModel.getAmblinStudios(connection);
-    MovieView.displayStudios(studios);
-  }
-
-  private static void listCustomerTransactionSummary(Connection connection, String storeNo,
-      String customerId) throws SQLException {
-    List<CustomerTransaction> transactions =
-        MovieDataModel.getCustomerTransactions(connection, storeNo, customerId);
-    MovieView.displayTransactions(transactions);
-  }
-
-  private static void printCustomerInvoice(Connection connection, String storeNo, String customerId)
-      throws SQLException {
-    MovieView.promptForTransactionNo();
-    String transactionNo = in.next();
-    Invoice invoice = MovieDataModel.getCustomerInvoiceByTransactionNo(connection, storeNo,
-        customerId, transactionNo);
-    MovieView.displayCustomerInvoice(invoice);
-  }
-
-  private static void orderMovieMedia(Connection connection, String storeNo, String customerId)
-      throws SQLException {
-    ShoppingCart cart = new ShoppingCart();
-    List<MovieItem> movieItems = MovieDataModel.getAllMovieItems(connection);
-    while (true) {
-      MovieView.displayItemOrderMenu(movieItems);
-      int action = in.nextInt();
-      if (action < 0) {
-        MovieView.displayCancelMsg();
-        break;
-      }
-      if (action == 0 && cart.isEmpty()) {
-        MovieView.displayEmptyCartMsg();
-        continue;
-      }
-      if (action == 0) {
-        String transNo = MovieDataModel.confirmOrder(connection, storeNo, customerId, cart);
-        MovieView.displayConfirmedMsg(transNo);
-        break;
-      }
-      if (action > 0 && action <= movieItems.size()) {
-        int row = action;
-        MovieItem item = movieItems.get(row - 1);
-        CartItem cartItem = new CartItem(item, 1);
-        cart.addItem(cartItem);
-        item.setQuantity(item.getQuantity() - 1);
-      }
-    }
-  }
-   */
 }
